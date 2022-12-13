@@ -34,9 +34,7 @@ namespace RoguelikeV2.Json
         {
            
             InputManager.MouseGetState();
-            //int X = (int)CameraManager.editorCamera.NewCenter.X;
-            //int Y = (int)CameraManager.editorCamera.NewCenter.Y;
-
+           
             int x = (InputManager.CurrentMouse.X / tileSize) * tileSize + (int)CameraManager.editorCamera.FirstCentre.X;
             int y = (InputManager.CurrentMouse.Y / tileSize) * tileSize + (int)CameraManager.editorCamera.FirstCentre.Y;
             Rectangle rect = new Rectangle(x, y, tileSize, tileSize);           

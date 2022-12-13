@@ -15,13 +15,9 @@ namespace RoguelikeV2.Camera
         private Vector2 firstCentre;
         public Vector2 FirstCentre { get { return firstCentre; } }
 
-        private Vector2 newCentre;
-        public Vector2 NewCenter { get { return newCentre; } }
-        
-
         public EditorCamera(GameWindow WINDOW)
         {
-            //view = VIEW;
+            
             firstCentre = new Vector2(WINDOW.ClientBounds.X, WINDOW.ClientBounds.Y);
             
         }
