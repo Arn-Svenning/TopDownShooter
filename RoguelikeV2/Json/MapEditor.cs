@@ -53,14 +53,14 @@ namespace RoguelikeV2.Json
                 isSaved = true;
             }
 
-            for (int e = gameObjectList.Count - 1; e >= 0; e--)
+            for (int i = gameObjectList.Count - 1; i >= 0; i--)
             {
                 
-                if (gameObjectList[e].Size.Contains((InputManager.CurrentMouse.X / tileSize) * tileSize + (int)CameraManager.editorCamera.FirstCentre.X, 
+                if (gameObjectList[i].Size.Contains((InputManager.CurrentMouse.X / tileSize) * tileSize + (int)CameraManager.editorCamera.FirstCentre.X, 
                     (InputManager.CurrentMouse.Y / tileSize) * tileSize + (int)CameraManager.editorCamera.FirstCentre.Y) && InputManager.PressOnce(Keys.X))
                 {
 
-                    gameObjectList.Remove(gameObjectList[e]);
+                    gameObjectList.Remove(gameObjectList[i]);
 
                 }
             }
