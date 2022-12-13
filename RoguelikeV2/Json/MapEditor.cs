@@ -39,18 +39,30 @@ namespace RoguelikeV2.Json
 
             int x = (InputManager.CurrentMouse.X / tileSize) * tileSize + (int)CameraManager.editorCamera.FirstCentre.X;
             int y = (InputManager.CurrentMouse.Y / tileSize) * tileSize + (int)CameraManager.editorCamera.FirstCentre.Y;
-                       
-
+            Rectangle rect = new Rectangle(x, y, tileSize, tileSize);           
+            
 
             if (InputManager.PressOnce(Keys.W))
             {
-                Wall w = new Wall(new Rectangle(x, y, tileSize, tileSize), AssetManager.regularWall);
+                Wall w = new Wall(rect, AssetManager.regularWall);
                 gameObjectList.Add(w);
             }
             else if (InputManager.PressOnce(Keys.S))
             {
                 JsonParser.WriteJsonToFile("level_1.json", gameObjectList);
                 isSaved = true;
+            }
+
+            for (int e = gameObjectList.Count - 1; e >= 0; e--)
+            {
+                
+                if (gameObjectList[e].Size.Contains((InputManager.CurrentMouse.X / tileSize) * tileSize + (int)CameraManager.editorCamera.FirstCentre.X, 
+                    (InputManager.CurrentMouse.Y / tileSize) * tileSize + (int)CameraManager.editorCamera.FirstCentre.Y) && InputManager.PressOnce(Keys.X))
+                {
+
+                    gameObjectList.Remove(gameObjectList[e]);
+
+                }
             }
         }
         public void Draw(SpriteBatch spriteBatch)

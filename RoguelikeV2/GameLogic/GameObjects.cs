@@ -9,7 +9,7 @@ namespace RoguelikeV2.GameLogic
     abstract class GameObjects
     {
         protected Rectangle size;
-        public Rectangle Size { get { return size; } }
+        public Rectangle Size { get { return size; } set { size = value; } }
 
         protected Texture2D texture;
 
