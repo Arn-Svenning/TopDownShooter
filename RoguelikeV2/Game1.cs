@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RoguelikeV2.Camera;
+using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
 #endregion
 
@@ -33,7 +35,7 @@ namespace RoguelikeV2
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             AssetManager.LoadAssets(Content);
-            GamePlayManager.LoadGame();
+            GamePlayManager.LoadGame(Window);
             
         }
 
@@ -43,11 +45,11 @@ namespace RoguelikeV2
                 Exit();
             InputManager.KeyboardGetState();
 
-            if (InputManager.PressOnce(Keys.V))
+            if (InputManager.PressOnce(Keys.E))
             {
                 Globals.currentGameState = Globals.GameState.editingMap;
             }
-            else if (InputManager.PressOnce(Keys.P))
+            if (InputManager.PressOnce(Keys.P))
             {
                 Globals.currentGameState = Globals.GameState.mainMenu;
             }
@@ -55,6 +57,7 @@ namespace RoguelikeV2
             switch (Globals.currentGameState)
             {
                 case Globals.GameState.mainMenu:
+                    
                     break;
 
                 case Globals.GameState.inGame:
@@ -67,8 +70,10 @@ namespace RoguelikeV2
                     break;
 
                 case Globals.GameState.editingMap:
+                    Window.Title = "EDITOR: " + "Is Saved: " + MapEditor.IsSaved;
                     GamePlayManager.UpdateEditor();
-                    
+                    GamePlayManager.UpdateEditorCamera(gameTime);
+                   
                     break;
             }
             
@@ -79,12 +84,14 @@ namespace RoguelikeV2
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
+
            
             switch (Globals.currentGameState)
             {
                 case Globals.GameState.mainMenu:
+                    spriteBatch.Begin();
                     GamePlayManager.DrawWalls(spriteBatch);
+                    spriteBatch.End();
                     break;
 
                 case Globals.GameState.inGame:
@@ -97,10 +104,13 @@ namespace RoguelikeV2
                     break;
 
                 case Globals.GameState.editingMap:
-                    GamePlayManager.DrawEditor(spriteBatch);                    
+
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, CameraManager.editorCamera.Transform);
+                    GamePlayManager.DrawEditor(spriteBatch);
+                    spriteBatch.End();
                     break;
             }
-            spriteBatch.End();
+           
             base.Draw(gameTime);
         }
     }

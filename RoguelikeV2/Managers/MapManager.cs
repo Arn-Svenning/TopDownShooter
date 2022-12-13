@@ -13,19 +13,18 @@ namespace RoguelikeV2.Managers
 {
     internal class MapManager
     {
-        private static List<Wall> regularWalls;
+        public static List<Wall> regularWalls;
 
         private static MapEditor editor;
 
         public static void LoadMap()
-        {            
-            editor = new MapEditor();
+        {                        
             regularWalls = new List<Wall>();
             ReadFromFile("level_1.json");
+            editor = new MapEditor();
         }
         #region MapEditor
-               
-       
+                      
         public static void DrawMapEditor(SpriteBatch spriteBatch) => editor.Draw(spriteBatch);
         public static void UpdateMapEditor() => editor.Update();
         #endregion
