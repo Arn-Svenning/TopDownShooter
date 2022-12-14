@@ -1,11 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿#region Using...
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using RoguelikeV2.Camera;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RoguelikeV2.Json;
+using RoguelikeV2.Managers;
+#endregion
 
 namespace RoguelikeV2.Managers
 {
@@ -14,9 +14,9 @@ namespace RoguelikeV2.Managers
         public static EditorCamera editorCamera;
 
 
-        public static void LoadCamera(GameWindow WINDOW)
+        public static void LoadCamera(Viewport VIEW)
         {
-            editorCamera = new EditorCamera(WINDOW);
+            editorCamera = new EditorCamera(VIEW);
         }
 
         #region EditorCamera

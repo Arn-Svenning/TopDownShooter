@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 #endregion
 
 namespace RoguelikeV2.Managers
@@ -22,6 +23,8 @@ namespace RoguelikeV2.Managers
         public enum GameState { mainMenu, inGame, pauseGame, end, editingMap }
         public static GameState currentGameState = GameState.mainMenu;
         #endregion
+
+        public static Random random = new Random();
 
     }
 }

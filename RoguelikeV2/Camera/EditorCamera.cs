@@ -12,35 +12,35 @@ namespace RoguelikeV2.Camera
     {
         private Matrix transform;
         public Matrix Transform { get { return transform; } }       
-        private Vector2 firstCentre;
-        public Vector2 FirstCentre { get { return firstCentre; } }
+        private Vector2 centre;
+        public Vector2 Centre { get { return centre; } }
 
-        public EditorCamera(GameWindow WINDOW)
+        public EditorCamera(Viewport VIEW)
         {
             
-            firstCentre = new Vector2(WINDOW.ClientBounds.X, WINDOW.ClientBounds.Y);
+            centre = new Vector2(VIEW.X , VIEW.Y);
             
         }
 
         public void Update(GameTime gameTime)
         {
-            transform = Matrix.CreateScale(new Vector3(1, 1, 0)) * Matrix.CreateTranslation(new Vector3(-firstCentre.X,  -firstCentre.Y, 0));
+            transform = Matrix.CreateScale(new Vector3(1, 1, 0)) * Matrix.CreateTranslation(new Vector3(-centre.X,  -centre.Y, 0));
 
             if (InputManager.HoldKey(Keys.Right))
             {
-                firstCentre.X += 10;
+                centre.X += 10;
             }
             if (InputManager.HoldKey(Keys.Left))
             {
-                firstCentre.X -= 10;
+                centre.X -= 10;
             }
             if (InputManager.HoldKey(Keys.Up))
             {
-                firstCentre.Y -= 10;
+                centre.Y -= 10;
             }
             if (InputManager.HoldKey(Keys.Down))
             {
-                firstCentre.Y += 10;
+                centre.Y += 10;
             }
 
         }

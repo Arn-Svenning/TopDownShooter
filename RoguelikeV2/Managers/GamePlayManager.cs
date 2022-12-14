@@ -9,16 +9,17 @@ namespace RoguelikeV2.Managers
 {
     internal class GamePlayManager
     {        
-        public static void LoadGame(GameWindow WINDOW)
+        public static void LoadGame(Viewport VIEW)
         {
             MapManager.LoadMap();
-            CameraManager.LoadCamera(WINDOW);
+            CameraManager.LoadCamera(VIEW);
         }
         #region MapEditor
         public static void UpdateEditor() => MapManager.UpdateMapEditor();
         public static void DrawEditor(SpriteBatch spriteBatch) => MapManager.DrawMapEditor(spriteBatch);
         #endregion
-        #region
+
+        #region Camera
         public static void UpdateEditorCamera(GameTime gameTime) => CameraManager.UpdateEditorCamera(gameTime);
         #endregion
 

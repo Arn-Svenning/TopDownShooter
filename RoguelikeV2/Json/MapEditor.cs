@@ -35,8 +35,8 @@ namespace RoguelikeV2.Json
            
             InputManager.MouseGetState();
            
-            int x = (InputManager.CurrentMouse.X / tileSize) * tileSize + (int)CameraManager.editorCamera.FirstCentre.X;
-            int y = (InputManager.CurrentMouse.Y / tileSize) * tileSize + (int)CameraManager.editorCamera.FirstCentre.Y;
+            int x = (InputManager.CurrentMouse.X / tileSize) * tileSize + (int)CameraManager.editorCamera.Centre.X;
+            int y = (InputManager.CurrentMouse.Y / tileSize) * tileSize + (int)CameraManager.editorCamera.Centre.Y;
             Rectangle rect = new Rectangle(x, y, tileSize, tileSize);           
             
 
@@ -54,8 +54,8 @@ namespace RoguelikeV2.Json
             for (int i = gameObjectList.Count - 1; i >= 0; i--)
             {
                 
-                if (gameObjectList[i].Size.Contains((InputManager.CurrentMouse.X / tileSize) * tileSize + (int)CameraManager.editorCamera.FirstCentre.X, 
-                    (InputManager.CurrentMouse.Y / tileSize) * tileSize + (int)CameraManager.editorCamera.FirstCentre.Y) && InputManager.PressOnce(Keys.X))
+                if (gameObjectList[i].Size.Contains((InputManager.CurrentMouse.X / tileSize) * tileSize + (int)CameraManager.editorCamera.Centre.X, 
+                    (InputManager.CurrentMouse.Y / tileSize) * tileSize + (int)CameraManager.editorCamera.Centre.Y) && InputManager.PressOnce(Keys.X))
                 {
 
                     gameObjectList.Remove(gameObjectList[i]);

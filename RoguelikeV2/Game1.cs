@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RoguelikeV2.Camera;
+using RoguelikeV2.GameLogic.Moving;
 using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
 #endregion
@@ -13,7 +14,7 @@ namespace RoguelikeV2
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        GamePlayManager game;
+      
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -35,7 +36,8 @@ namespace RoguelikeV2
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             AssetManager.LoadAssets(Content);
-            GamePlayManager.LoadGame(Window);
+            GamePlayManager.LoadGame(GraphicsDevice.Viewport);
+
             
         }
 
@@ -44,7 +46,7 @@ namespace RoguelikeV2
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             InputManager.KeyboardGetState();
-
+            
             if (InputManager.PressOnce(Keys.E))
             {
                 Globals.currentGameState = Globals.GameState.editingMap;
@@ -85,12 +87,14 @@ namespace RoguelikeV2
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-           
+            
             switch (Globals.currentGameState)
             {
                 case Globals.GameState.mainMenu:
                     spriteBatch.Begin();
+
                     GamePlayManager.DrawWalls(spriteBatch);
+                    
                     spriteBatch.End();
                     break;
 

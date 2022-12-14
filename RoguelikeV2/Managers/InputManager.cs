@@ -9,8 +9,8 @@ namespace RoguelikeV2.Managers
     internal class InputManager
     {
         #region KeyboardVariables
-        public static KeyboardState currentKeyState; //Gör private
-        public static KeyboardState previousKeyState;
+        private static KeyboardState currentKeyState; 
+        private static KeyboardState previousKeyState;
         #endregion
         public static void UpdateInput()
         {

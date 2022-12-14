@@ -20,6 +20,8 @@ namespace RoguelikeV2.Managers
 
         //floor
         public static Texture2D regularFloor;
+
+        public static Texture2D test;
         public static void LoadAssets(ContentManager Content)
         {
             //player
@@ -30,6 +32,8 @@ namespace RoguelikeV2.Managers
 
             //floor
             regularFloor = Content.Load<Texture2D>("Stationary/Floor/Floor-Tile");
+
+            test = Content.Load<Texture2D>("Ninja-Run-Sheet");
         }
     }
 }
