@@ -24,11 +24,9 @@ namespace RoguelikeV2
             graphics.PreferredBackBufferHeight = Globals.screenHeight;
 
         }
-
         protected override void Initialize()
         {
             
-
             base.Initialize();
         }
 
@@ -37,7 +35,6 @@ namespace RoguelikeV2
             spriteBatch = new SpriteBatch(GraphicsDevice);
             AssetManager.LoadAssets(Content);
             GamePlayManager.LoadGame(GraphicsDevice.Viewport);
-
             
         }
 

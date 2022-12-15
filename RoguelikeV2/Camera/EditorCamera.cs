@@ -26,21 +26,21 @@ namespace RoguelikeV2.Camera
         {
             transform = Matrix.CreateScale(new Vector3(1, 1, 0)) * Matrix.CreateTranslation(new Vector3(-centre.X,  -centre.Y, 0));
 
-            if (InputManager.HoldKey(Keys.Right))
+            if (InputManager.PressOnce(Keys.Right))
             {
-                centre.X += 10;
+                centre.X += 64;
             }
-            if (InputManager.HoldKey(Keys.Left))
+            if (InputManager.PressOnce(Keys.Left))
             {
-                centre.X -= 10;
+                centre.X -= 64;
             }
-            if (InputManager.HoldKey(Keys.Up))
+            if (InputManager.PressOnce(Keys.Up))
             {
-                centre.Y -= 10;
+                centre.Y -= 64;
             }
-            if (InputManager.HoldKey(Keys.Down))
+            if (InputManager.PressOnce(Keys.Down))
             {
-                centre.Y += 10;
+                centre.Y += 64;
             }
 
         }

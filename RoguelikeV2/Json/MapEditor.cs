@@ -1,4 +1,5 @@
 ﻿#region Using...
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,6 +9,7 @@ using RoguelikeV2.GameLogic.Stationary;
 using RoguelikeV2.Managers;
 using SharpDX.DirectWrite;
 using System.Collections.Generic;
+using System.Diagnostics;
 #endregion
 
 namespace RoguelikeV2.Json
@@ -44,7 +46,10 @@ namespace RoguelikeV2.Json
             {
                 Wall w = new Wall(rect, AssetManager.regularWall);
                 gameObjectList.Add(w);
+
+                Debug.WriteLine(x + "," + y);
             }
+           
             else if (InputManager.PressOnce(Keys.S))
             {
                 JsonParser.WriteJsonToFile("level_1.json", gameObjectList);
