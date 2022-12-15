@@ -16,7 +16,7 @@ namespace RoguelikeV2.GameLogic.Stationary
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
+            spriteBatch.Draw(texture, Size, Color.White);
         }
     }
 }

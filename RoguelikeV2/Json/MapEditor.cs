@@ -10,6 +10,7 @@ using RoguelikeV2.Managers;
 using SharpDX.DirectWrite;
 using System.Collections.Generic;
 using System.Diagnostics;
+using RoguelikeV2.GameLogic.Moving;
 #endregion
 
 namespace RoguelikeV2.Json
@@ -30,6 +31,11 @@ namespace RoguelikeV2.Json
             {
                 gameObjectList.Add(walls);
             }
+            foreach(Floor floor in MapManager.floorList)
+            {
+                gameObjectList.Add(floor);
+            }
+            gameObjectList.Add(MapManager.player1);
             isSaved = false;
         }
         public void Update()
@@ -46,10 +52,14 @@ namespace RoguelikeV2.Json
             {
                 Wall w = new Wall(rect, AssetManager.regularWall);
                 gameObjectList.Add(w);
-
-                Debug.WriteLine(x + "," + y);
+               
             }
-           
+            else if(InputManager.PressOnce(Keys.F))
+            {
+                Floor f = new Floor(rect, AssetManager.regularFloor);
+                gameObjectList.Add(f);
+            }
+
             else if (InputManager.PressOnce(Keys.S))
             {
                 JsonParser.WriteJsonToFile("level_1.json", gameObjectList);

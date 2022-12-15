@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using RoguelikeV2.GameLogic.Stationary;
+using RoguelikeV2.GameLogic.Moving;
 #endregion
 
 namespace RoguelikeV2.Json
@@ -72,7 +73,8 @@ namespace RoguelikeV2.Json
         }
         public static void WriteJsonToFile(string filename, List<GameObjects> gList)
         {
-            JArray wallArray = new JArray();           
+            JArray wallArray = new JArray();
+            JArray floorArray = new JArray();            
             JObject bigobj = new JObject();
             JArray array = new JArray();
 
@@ -82,10 +84,20 @@ namespace RoguelikeV2.Json
                 {
                     JObject obj = CreateObject(gList[i].Size);
                     wallArray.Add(obj);
-                }                
+                }
+                else if (gList[i] is Floor)
+                {
+                    JObject obj = CreateObject(gList[i].Size);
+                    floorArray.Add(obj);
+                }
+                else if (gList[i] is Player)
+                {
+                    JObject obj = CreateObject(gList[i].Size);
+                    bigobj.Add("player1", obj);
+                }
             }
             bigobj.Add("walls", wallArray);
-            
+            bigobj.Add("floor", floorArray);
             System.Diagnostics.Debug.WriteLine(bigobj.ToString());
             File.WriteAllText(filename, bigobj.ToString());
         }

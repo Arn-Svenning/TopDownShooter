@@ -56,7 +56,7 @@ namespace RoguelikeV2
             switch (Globals.currentGameState)
             {
                 case Globals.GameState.mainMenu:
-                    
+                    GamePlayManager.UpdatePlayer1(gameTime);
                     break;
 
                 case Globals.GameState.inGame:
@@ -89,9 +89,10 @@ namespace RoguelikeV2
             {
                 case Globals.GameState.mainMenu:
                     spriteBatch.Begin();
+                   
+                    GamePlayManager.DrawMap(spriteBatch);
+                    GamePlayManager.DrawPlayer1(spriteBatch);
 
-                    GamePlayManager.DrawWalls(spriteBatch);
-                    
                     spriteBatch.End();
                     break;
 

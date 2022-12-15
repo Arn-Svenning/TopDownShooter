@@ -23,8 +23,13 @@ namespace RoguelikeV2.Managers
         public static void UpdateEditorCamera(GameTime gameTime) => CameraManager.UpdateEditorCamera(gameTime);
         #endregion
 
-        #region Walls
-        public static void DrawWalls(SpriteBatch spriteBatch) => MapManager.DrawWalls(spriteBatch);
+        #region Tiles
+        public static void DrawMap(SpriteBatch spriteBatch) => MapManager.DrawMap(spriteBatch);
+        #endregion
+
+        #region Players
+        public static void UpdatePlayer1(GameTime gameTime) => MapManager.UpdatePlayer1(gameTime);
+        public static void DrawPlayer1(SpriteBatch spriteBatch) => MapManager.DrawPlayer1(spriteBatch);
         #endregion
     }
 }

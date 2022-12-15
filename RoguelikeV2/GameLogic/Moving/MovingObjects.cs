@@ -9,7 +9,7 @@ namespace RoguelikeV2.GameLogic.Moving
 {
     abstract class MovingObjects : GameObjects
     {
-        protected float velocity;
+        protected float speed;
 
         protected Vector2 direction;
 
