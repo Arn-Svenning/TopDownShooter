@@ -2,8 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using RoguelikeV2.GameLogic.Moving;
-using RoguelikeV2.GameLogic.Stationary;
+using RoguelikeV2.GameLogic;
+using RoguelikeV2.GameLogic.Moving.Players;
+using RoguelikeV2.GameLogic.Stationary.Tiles;
 using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
 using System;
@@ -14,17 +15,19 @@ namespace RoguelikeV2.Managers
 {
     internal class MapManager
     {
-        public static List<Wall> regularWalls;
-        public static List<Floor> floorList;
-        public static Player player1;
+        public static List<GameObjects> mapObjects;
+        public static List<Player> player1;
+        public static List<Player> player2;
 
         private static MapEditor editor;
 
         public static void LoadMap()
-        {                        
-            regularWalls = new List<Wall>();
-            floorList = new List<Floor>();            
+        {                               
+            mapObjects = new List<GameObjects>();
+            player1 = new List<Player>();
+            player2 = new List<Player>();
             ReadFromFile("level_1.json");
+
             editor = new MapEditor();
         }
         #region MapEditor
@@ -37,34 +40,61 @@ namespace RoguelikeV2.Managers
        
         public static void DrawMap(SpriteBatch spriteBatch)
         {
-            foreach (Wall wall in regularWalls)
+           
+            foreach(GameObjects obj in mapObjects)
             {
-                wall.Draw(spriteBatch);
-            }
-            foreach(Floor floor in floorList)
-            {
-                floor.Draw(spriteBatch);
+                obj.Draw(spriteBatch);
             }
         }
 
         #endregion
 
         #region Players
+        //player1
+        public static void UpdatePlayer1(GameTime gameTime, Keys up, Keys down, Keys right, Keys left, int player)
+        {
+            foreach(Player p1 in player1)
+            {
+                p1.Update(gameTime, up, down, right, left, player);
+            }
+        }
 
-        public static void UpdatePlayer1(GameTime gameTime) => player1.Update(gameTime);
+        public static void DrawPlayer1(SpriteBatch spriteBatch)
+        {
+            foreach(Player p1 in player1)
+            {
+                p1.Draw(spriteBatch);
+            }
+        }
 
-        public static void DrawPlayer1(SpriteBatch spriteBatch) => player1.Draw(spriteBatch);
+        //player2
+        public static void UpdatePlayer2(GameTime gameTime, Keys up, Keys down, Keys right, Keys left, int player)
+        {
+            foreach(Player p2 in player2)
+            {
+                p2.Update(gameTime, up, down, right, left, player);
+            }
+        }
+
+        public static void DrawPlayer2(SpriteBatch spriteBatch)
+        {
+            foreach(Player p2 in player2)
+            {
+                p2.Draw(spriteBatch);
+            }
+        }
 
         #endregion
 
         private static void ReadFromFile(string fileName)
         {
+           
             //wall
             List<Rectangle> wallRects = JsonParser.GetRectangleList(fileName, "walls");
             foreach (Rectangle rect in wallRects)
             {
                 Wall w = new Wall(rect, AssetManager.regularWall);
-                regularWalls.Add(w);
+                mapObjects.Add(w);
             }
 
             //floor
@@ -72,12 +102,25 @@ namespace RoguelikeV2.Managers
             foreach (Rectangle rect in floorRects)
             {
                 Floor f = new Floor(rect, AssetManager.regularFloor);
-                floorList.Add(f);
+                mapObjects.Add(f);
             }
 
-            //players
-            Rectangle playerRect = JsonParser.GetRectangle(fileName, "player1");
-            player1 = new Player(playerRect);
+            ////player1          
+            List<Rectangle> player1Rect = JsonParser.GetRectangleList(fileName, "player1");
+            foreach (Rectangle rect in player1Rect)
+            {
+                Player p = new Player(rect);
+                player1.Add(p);
+            }
+
+            ////player2
+            List<Rectangle> player2Rect = JsonParser.GetRectangleList(fileName, "player2");
+            foreach (Rectangle rect in player2Rect)
+            {
+                Player p = new Player(rect);
+                player2.Add(p);
+            }
+
         }
         
     }

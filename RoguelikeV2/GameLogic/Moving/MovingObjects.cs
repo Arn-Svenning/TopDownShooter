@@ -10,9 +10,9 @@ namespace RoguelikeV2.GameLogic.Moving
     abstract class MovingObjects : GameObjects
     {
         protected float speed;
-
+        
         protected Vector2 direction;
-
+        
         #region Animation variables
         private float elapsedTime;
         private float frameTime;

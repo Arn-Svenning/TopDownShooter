@@ -21,6 +21,8 @@ namespace RoguelikeV2.Managers
 
         #region Camera
         public static void UpdateEditorCamera(GameTime gameTime) => CameraManager.UpdateEditorCamera(gameTime);
+        
+        public static void UpdateSplitScreenCamera() => CameraManager.UpdateSplitScreenCamera();
         #endregion
 
         #region Tiles
@@ -28,8 +30,11 @@ namespace RoguelikeV2.Managers
         #endregion
 
         #region Players
-        public static void UpdatePlayer1(GameTime gameTime) => MapManager.UpdatePlayer1(gameTime);
+        public static void UpdatePlayer1(GameTime gameTime) => MapManager.UpdatePlayer1(gameTime, Keys.W, Keys.S, Keys.D, Keys.A, 1);
         public static void DrawPlayer1(SpriteBatch spriteBatch) => MapManager.DrawPlayer1(spriteBatch);
+
+        public static void UpdatePlayer2(GameTime gameTime) => MapManager.UpdatePlayer2(gameTime, Keys.Up, Keys.Down, Keys.Right, Keys.Left, 2);
+        public static void DrawPlayer2(SpriteBatch spriteBatch) => MapManager.DrawPlayer2(spriteBatch);
         #endregion
     }
 }

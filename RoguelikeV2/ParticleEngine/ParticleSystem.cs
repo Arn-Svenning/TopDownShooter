@@ -6,6 +6,7 @@ using RoguelikeV2.Camera;
 using RoguelikeV2.GameLogic.Moving;
 using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
+using System;
 using System.Collections.Generic;
 #endregion
 
@@ -24,6 +25,8 @@ namespace RoguelikeV2.ParticleEngine
 
         private List<Particle> particles;
 
+        private float decreaseRandomScale;
+
         public ParticleSystem(Texture2D TEXTURE, Vector2 LOCATION, Color COLOR, int TOTALPARTICLES, int TTL)
         {
             EmitterLocation = LOCATION;
@@ -40,7 +43,7 @@ namespace RoguelikeV2.ParticleEngine
             Vector2 velocity = new Vector2(1f * (float)(Globals.random.NextDouble() * 2 - 1), 1f * (float)(Globals.random.NextDouble() * 2 - 1));
             float angle = 0;
             float angularVelocity = 0.1f * (float)(Globals.random.NextDouble() * 2 - 1);
-            float size = (float)Globals.random.NextDouble();
+            float size = (float)Globals.random.NextDouble() - decreaseRandomScale;
 
 
             return new Particle(texture, position, velocity, angle, angularVelocity, color, size, TTL);
@@ -58,8 +61,9 @@ namespace RoguelikeV2.ParticleEngine
                 }
             }
         }
-        public void UpdateParticle()
+        public void UpdateParticle(float DECREASERANDOMSCALE)
         {
+            decreaseRandomScale = DECREASERANDOMSCALE;
             for (int i = 0; i < totalParticles; i++)
             {
                 particles.Add(GenerateNewParticle());

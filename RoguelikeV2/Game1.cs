@@ -35,7 +35,14 @@ namespace RoguelikeV2
             spriteBatch = new SpriteBatch(GraphicsDevice);
             AssetManager.LoadAssets(Content);
             GamePlayManager.LoadGame(GraphicsDevice.Viewport);
-            
+            #region SplitScreen
+            CameraManager.defaultView = GraphicsDevice.Viewport;
+            CameraManager.leftView = CameraManager.defaultView;
+            CameraManager.rightView = CameraManager.defaultView;
+            CameraManager.leftView.Width = CameraManager.leftView.Width / 2;
+            CameraManager.rightView.Width = CameraManager.rightView.Width / 2;
+            CameraManager.rightView.X = CameraManager.leftView.Width;
+            #endregion
         }
 
         protected override void Update(GameTime gameTime)
@@ -56,7 +63,9 @@ namespace RoguelikeV2
             switch (Globals.currentGameState)
             {
                 case Globals.GameState.mainMenu:
+                    GamePlayManager.UpdateSplitScreenCamera();
                     GamePlayManager.UpdatePlayer1(gameTime);
+                    GamePlayManager.UpdatePlayer2(gameTime);
                     break;
 
                 case Globals.GameState.inGame:
@@ -82,18 +91,25 @@ namespace RoguelikeV2
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
+           
             
             switch (Globals.currentGameState)
             {
                 case Globals.GameState.mainMenu:
-                    spriteBatch.Begin();
-                   
-                    GamePlayManager.DrawMap(spriteBatch);
-                    GamePlayManager.DrawPlayer1(spriteBatch);
 
+                    GraphicsDevice.Viewport = CameraManager.leftView;
+                    DrawWithSplitScreenCamera(CameraManager.splitScreenCamera1);
+                    GraphicsDevice.Viewport = CameraManager.rightView;
+                    DrawWithSplitScreenCamera(CameraManager.splitScreenCamera2);
+
+                    GraphicsDevice.Viewport = CameraManager.defaultView;
+
+                    spriteBatch.Begin();
+                    spriteBatch.Draw(AssetManager.pillar, new Vector2(Globals.screenWidth / 2 - 5, 0), Color.White);
                     spriteBatch.End();
+
                     break;
 
                 case Globals.GameState.inGame:
@@ -114,6 +130,16 @@ namespace RoguelikeV2
             }
            
             base.Draw(gameTime);
+        }
+        private void DrawWithSplitScreenCamera(SplitScreenCamera camera)
+        {
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
+
+            GamePlayManager.DrawMap(spriteBatch);
+            GamePlayManager.DrawPlayer1(spriteBatch);
+            GamePlayManager.DrawPlayer2(spriteBatch);
+
+            spriteBatch.End();
         }
     }
 }

@@ -5,37 +5,31 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RoguelikeV2.Camera;
 using RoguelikeV2.GameLogic;
-using RoguelikeV2.GameLogic.Stationary;
 using RoguelikeV2.Managers;
 using SharpDX.DirectWrite;
 using System.Collections.Generic;
 using System.Diagnostics;
-using RoguelikeV2.GameLogic.Moving;
+using RoguelikeV2.GameLogic.Moving.Players;
+using RoguelikeV2.GameLogic.Stationary.Tiles;
 #endregion
 
 namespace RoguelikeV2.Json
 {
     internal class MapEditor
     {
-        private List<GameObjects> gameObjectList;
-
+       
         private static bool isSaved;
         public static bool IsSaved { get { return isSaved; } }
 
         private const int tileSize = 64;
 
         public MapEditor()
-        {            
-            gameObjectList = new List<GameObjects>();
-            foreach(Wall walls in MapManager.regularWalls)
+        {          
+            foreach (Player p2 in MapManager.player2)
             {
-                gameObjectList.Add(walls);
+                MapManager.mapObjects.Add(p2);
             }
-            foreach(Floor floor in MapManager.floorList)
-            {
-                gameObjectList.Add(floor);
-            }
-            gameObjectList.Add(MapManager.player1);
+           
             isSaved = false;
         }
         public void Update()
@@ -51,38 +45,42 @@ namespace RoguelikeV2.Json
             if (InputManager.PressOnce(Keys.W))
             {
                 Wall w = new Wall(rect, AssetManager.regularWall);
-                gameObjectList.Add(w);
+                MapManager.mapObjects.Add(w);
                
             }
             else if(InputManager.PressOnce(Keys.F))
             {
                 Floor f = new Floor(rect, AssetManager.regularFloor);
-                gameObjectList.Add(f);
+                MapManager.mapObjects.Add(f);
             }
 
             else if (InputManager.PressOnce(Keys.S))
             {
-                JsonParser.WriteJsonToFile("level_1.json", gameObjectList);
+                JsonParser.WriteJsonToFile("level_1.json", MapManager.mapObjects);
                 isSaved = true;
             }
 
-            for (int i = gameObjectList.Count - 1; i >= 0; i--)
+            for (int i = MapManager.mapObjects.Count - 1; i >= 0; i--)
             {
                 
-                if (gameObjectList[i].Size.Contains((InputManager.CurrentMouse.X / tileSize) * tileSize + (int)CameraManager.editorCamera.Centre.X, 
+                if (MapManager.mapObjects[i].Size.Contains((InputManager.CurrentMouse.X / tileSize) * tileSize + (int)CameraManager.editorCamera.Centre.X, 
                     (InputManager.CurrentMouse.Y / tileSize) * tileSize + (int)CameraManager.editorCamera.Centre.Y) && InputManager.PressOnce(Keys.X))
                 {
 
-                    gameObjectList.Remove(gameObjectList[i]);
+                    MapManager.mapObjects.Remove(MapManager.mapObjects[i]);
 
                 }
             }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (GameObjects obj in gameObjectList)
+            foreach(GameObjects obj in MapManager.mapObjects)
             {
                 obj.Draw(spriteBatch);
+            }
+            foreach (Player p1 in MapManager.player1)
+            {
+                p1.Draw(spriteBatch);
             }
         }
     }

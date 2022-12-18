@@ -12,8 +12,10 @@ namespace RoguelikeV2.GameLogic
         public Rectangle Size { get { return size; } set { size = value; } }
 
         protected Texture2D texture;
+        public Texture2D Texture { get { return texture; } }
 
         protected Vector2 position;
+        public Vector2 Position { get { return position; } }
 
 
 
@@ -23,6 +25,9 @@ namespace RoguelikeV2.GameLogic
 
             position = new Vector2(size.X, size.Y);
         }
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, position, Color.White);
+        }
     }
 }

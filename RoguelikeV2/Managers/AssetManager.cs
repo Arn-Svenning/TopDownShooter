@@ -21,7 +21,26 @@ namespace RoguelikeV2.Managers
         public static Texture2D upLeft;
         public static Texture2D downRight;
         public static Texture2D downLeft;
-        
+
+        //player2
+        public static Texture2D upBlue;
+        public static Texture2D downBlue;
+        public static Texture2D rightBlue;
+        public static Texture2D leftBlue;
+        public static Texture2D upRightBlue;
+        public static Texture2D upLeftBlue;
+        public static Texture2D downRightBlue;
+        public static Texture2D downLeftBlue;
+
+        //splitScreen
+        public static Texture2D pillar;
+
+        //guns
+        public static Texture2D normalGun;
+        public static Texture2D sniper;
+
+        //particles
+        public static Texture2D circleParticle;
 
         //walls
         public static Texture2D regularWall;
@@ -41,8 +60,26 @@ namespace RoguelikeV2.Managers
             upLeft = Content.Load<Texture2D>("Moving/Players/Player1/Move/Up-Left-Sheet");
             downRight = Content.Load<Texture2D>("Moving/Players/Player1/Move/Down-Right-Sheet");
             downLeft = Content.Load<Texture2D>("Moving/Players/Player1/Move/Down-Left-Sheet");
-            
 
+            //player2
+            upBlue = Content.Load<Texture2D>("Moving/Players/Player2/Move/Up-Sheet-Blue");
+            downBlue = Content.Load<Texture2D>("Moving/Players/Player2/Move/Down-Sheet-Blue");
+            rightBlue = Content.Load<Texture2D>("Moving/Players/Player2/Move/Right-Sheet-Blue");
+            leftBlue = Content.Load<Texture2D>("Moving/Players/Player2/Move/Left-Sheet-Blue");
+            upRightBlue = Content.Load<Texture2D>("Moving/Players/Player2/Move/Up-Right-Sheet-Blue");
+            upLeftBlue = Content.Load<Texture2D>("Moving/Players/Player2/Move/Up-Left-Sheet-Blue");
+            downRightBlue = Content.Load<Texture2D>("Moving/Players/Player2/Move/Down-Right-Sheet-Blue");
+            downLeftBlue = Content.Load<Texture2D>("Moving/Players/Player2/Move/Down-Left-Sheet-Blue");
+
+            //splitScreen
+            pillar = Content.Load<Texture2D>("Stationary/SplitScreen/SplitScreen");
+
+            //guns
+            normalGun = Content.Load<Texture2D>("Stationary/Guns/Normal-Gun");
+            sniper = Content.Load<Texture2D>("Stationary/Guns/Sniper");
+
+            //particles
+            circleParticle = Content.Load<Texture2D>("Moving/Particles/circle");
 
             //walls
             regularWall = Content.Load<Texture2D>("Stationary/Walls/Wall-Tile");

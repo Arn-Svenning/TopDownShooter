@@ -5,12 +5,11 @@ using Microsoft.Xna.Framework.Input;
 using RoguelikeV2.Managers;
 #endregion
 
-namespace RoguelikeV2.GameLogic.Stationary
+namespace RoguelikeV2.GameLogic.Stationary.Tiles
 {
     internal class Wall : StationaryObjects
     {
-
-        public Wall(Rectangle RECTANGLE, Texture2D tex) : base (RECTANGLE)
+        public Wall(Rectangle RECTANGLE, Texture2D tex) : base(RECTANGLE)
         {
             texture = tex;
         }
