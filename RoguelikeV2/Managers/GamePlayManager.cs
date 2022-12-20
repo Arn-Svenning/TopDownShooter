@@ -30,11 +30,33 @@ namespace RoguelikeV2.Managers
         #endregion
 
         #region Players
-        public static void UpdatePlayer1(GameTime gameTime) => MapManager.UpdatePlayer1(gameTime, Keys.W, Keys.S, Keys.D, Keys.A, 1);
-        public static void DrawPlayer1(SpriteBatch spriteBatch) => MapManager.DrawPlayer1(spriteBatch);
+        public static void UpdatePlayer1(GameTime gameTime)
+        {
+            MapManager.UpdatePlayer1(gameTime, Keys.W, Keys.S, Keys.D, Keys.A, 1, Keys.H);
+            ProjectileManager.Update(gameTime);
+        }
+        public static void DrawPlayer1(SpriteBatch spriteBatch)
+        {
+            ProjectileManager.Draw(spriteBatch);
+            MapManager.DrawPlayer1(spriteBatch);            
+        }
 
-        public static void UpdatePlayer2(GameTime gameTime) => MapManager.UpdatePlayer2(gameTime, Keys.Up, Keys.Down, Keys.Right, Keys.Left, 2);
-        public static void DrawPlayer2(SpriteBatch spriteBatch) => MapManager.DrawPlayer2(spriteBatch);
+        public static void UpdatePlayer2(GameTime gameTime)
+        {
+            ProjectileManager.Update(gameTime);
+            MapManager.UpdatePlayer2(gameTime, Keys.Up, Keys.Down, Keys.Right, Keys.Left, 2, Keys.G);            
+        }
+        public static void DrawPlayer2(SpriteBatch spriteBatch)
+        {
+            ProjectileManager.Draw(spriteBatch);
+            MapManager.DrawPlayer2(spriteBatch);           
+        }
+        #endregion
+
+        #region Enemies
+        public static void UpdateChasingEnemies(GameTime gameTime) => MapManager.UpdateChasingEnemies(gameTime);
+
+        public static void DrawChasingEnemies(SpriteBatch spriteBatch) => MapManager.DrawChasingEnemies(spriteBatch);
         #endregion
     }
 }

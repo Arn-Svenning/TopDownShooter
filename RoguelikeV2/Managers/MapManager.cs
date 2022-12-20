@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RoguelikeV2.GameLogic;
+using RoguelikeV2.GameLogic.Moving.Enemies;
 using RoguelikeV2.GameLogic.Moving.Players;
 using RoguelikeV2.GameLogic.Stationary.Tiles;
 using RoguelikeV2.Json;
@@ -18,6 +19,7 @@ namespace RoguelikeV2.Managers
         public static List<GameObjects> mapObjects;
         public static List<Player> player1;
         public static List<Player> player2;
+        public static List<ChasingEnemy> chasingEnemies;
 
         private static MapEditor editor;
 
@@ -26,6 +28,7 @@ namespace RoguelikeV2.Managers
             mapObjects = new List<GameObjects>();
             player1 = new List<Player>();
             player2 = new List<Player>();
+            chasingEnemies = new List<ChasingEnemy>();
             ReadFromFile("level_1.json");
 
             editor = new MapEditor();
@@ -51,11 +54,11 @@ namespace RoguelikeV2.Managers
 
         #region Players
         //player1
-        public static void UpdatePlayer1(GameTime gameTime, Keys up, Keys down, Keys right, Keys left, int player)
+        public static void UpdatePlayer1(GameTime gameTime, Keys up, Keys down, Keys right, Keys left, int player, Keys shoot)
         {
             foreach(Player p1 in player1)
             {
-                p1.Update(gameTime, up, down, right, left, player);
+                p1.Update(gameTime, up, down, right, left, player, shoot);
             }
         }
 
@@ -68,11 +71,11 @@ namespace RoguelikeV2.Managers
         }
 
         //player2
-        public static void UpdatePlayer2(GameTime gameTime, Keys up, Keys down, Keys right, Keys left, int player)
+        public static void UpdatePlayer2(GameTime gameTime, Keys up, Keys down, Keys right, Keys left, int player, Keys shoot)
         {
             foreach(Player p2 in player2)
             {
-                p2.Update(gameTime, up, down, right, left, player);
+                p2.Update(gameTime, up, down, right, left, player, shoot);
             }
         }
 
@@ -84,6 +87,23 @@ namespace RoguelikeV2.Managers
             }
         }
 
+        #endregion
+
+        #region Enemies
+        public static void UpdateChasingEnemies(GameTime gameTime)
+        {
+            foreach(ChasingEnemy chasing in chasingEnemies)
+            {
+                chasing.Update(gameTime);
+            }
+        }
+        public static void DrawChasingEnemies(SpriteBatch spriteBatch)
+        {
+            foreach(ChasingEnemy chasing in chasingEnemies)
+            {
+                chasing.Draw(spriteBatch);
+            }
+        }
         #endregion
 
         private static void ReadFromFile(string fileName)
@@ -120,6 +140,15 @@ namespace RoguelikeV2.Managers
                 Player p = new Player(rect);
                 player2.Add(p);
             }
+
+            //chasingEnemies
+            List<Rectangle> chasingEnemyRect = JsonParser.GetRectangleList(fileName, "chasingEnemies");
+            foreach (Rectangle rect in chasingEnemyRect)
+            {
+                ChasingEnemy c = new ChasingEnemy(rect);
+                chasingEnemies.Add(c);
+            }
+
 
         }
         

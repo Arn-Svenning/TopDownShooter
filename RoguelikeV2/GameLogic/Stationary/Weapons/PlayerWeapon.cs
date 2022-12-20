@@ -4,9 +4,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RoguelikeV2.Camera;
 using RoguelikeV2.GameLogic.Moving;
+using RoguelikeV2.GameLogic.Moving.Projectiles;
 using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
 using System;
+using System.Collections.Generic;
 #endregion
 
 
@@ -14,21 +16,28 @@ namespace RoguelikeV2.GameLogic.Stationary.Weapons
 {
     internal class PlayerWeapon : Weapon
     {
-        SpriteEffects effect;
-       
+        private SpriteEffects effect;
+
+        
         public PlayerWeapon(Rectangle RECTANGLE, Vector2 ORIGIN) : base(RECTANGLE)
         {
             texture = AssetManager.normalGun;
             origin = ORIGIN;
         }
-        public void Update(GameTime gameTime, Keys left, Keys right, Keys down, Keys up)
+        public void Update(GameTime gameTime, Keys left, Keys right, Keys down, Keys up, Keys shoot, int player)
         {
             RotateGun(gameTime, left, right, down, up);
+
+            if(InputManager.PressOnce(shoot))
+            {
+                Shoot(player);
+            }
            
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, size, null, Color.White, rotation, origin, effect, 1);
+            
         }
         private void RotateGun(GameTime gameTime, Keys left, Keys right, Keys down, Keys up)
         {
@@ -75,5 +84,17 @@ namespace RoguelikeV2.GameLogic.Stationary.Weapons
             
 
         }
+        private void Shoot(int player)
+        {
+            ProjectileData pd = new()
+            {
+                Position = position,
+                Rotation = rotation,
+                LifeSpan = 2,
+                Speed = 600
+            };
+            ProjectileManager.AddProjectile(pd, player);
+        }
+
     }
 }

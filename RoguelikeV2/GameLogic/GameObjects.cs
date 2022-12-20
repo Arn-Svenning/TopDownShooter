@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 #endregion
 
 namespace RoguelikeV2.GameLogic
@@ -17,17 +18,19 @@ namespace RoguelikeV2.GameLogic
         protected Vector2 position;
         public Vector2 Position { get { return position; } }
 
-
+        protected float rotation;
+        public float Rotation { get { return rotation; } }
 
         public GameObjects(Rectangle RECTANGLE)
         {
             size = RECTANGLE;
-
             position = new Vector2(size.X, size.Y);
-        }
+        }      
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, Color.White);
         }
+
     }
 }

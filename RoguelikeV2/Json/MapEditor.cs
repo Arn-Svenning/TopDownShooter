@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using RoguelikeV2.GameLogic.Moving.Players;
 using RoguelikeV2.GameLogic.Stationary.Tiles;
+using RoguelikeV2.GameLogic.Moving.Enemies;
 #endregion
 
 namespace RoguelikeV2.Json
@@ -29,6 +30,11 @@ namespace RoguelikeV2.Json
             {
                 MapManager.mapObjects.Add(p2);
             }
+            foreach(ChasingEnemy chasing in MapManager.chasingEnemies)
+            {
+                MapManager.mapObjects.Add(chasing);
+            }
+            
            
             isSaved = false;
         }
@@ -53,12 +59,18 @@ namespace RoguelikeV2.Json
                 Floor f = new Floor(rect, AssetManager.regularFloor);
                 MapManager.mapObjects.Add(f);
             }
+            else if (InputManager.PressOnce(Keys.C))
+            {
+                ChasingEnemy c = new ChasingEnemy(rect);
+                MapManager.mapObjects.Add(c);
+            }
 
             else if (InputManager.PressOnce(Keys.S))
             {
                 JsonParser.WriteJsonToFile("level_1.json", MapManager.mapObjects);
                 isSaved = true;
             }
+            
 
             for (int i = MapManager.mapObjects.Count - 1; i >= 0; i--)
             {
@@ -81,6 +93,10 @@ namespace RoguelikeV2.Json
             foreach (Player p1 in MapManager.player1)
             {
                 p1.Draw(spriteBatch);
+            }
+            foreach(ChasingEnemy chasing in MapManager.chasingEnemies)
+            {
+                chasing.Draw(spriteBatch);
             }
         }
     }

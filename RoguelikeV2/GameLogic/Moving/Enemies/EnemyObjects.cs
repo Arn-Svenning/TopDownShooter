@@ -8,16 +8,16 @@ using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
 #endregion
 
-namespace RoguelikeV2.GameLogic.Stationary.Weapons
+namespace RoguelikeV2.GameLogic.Moving.Enemies
 {
-    abstract class Weapon : StationaryObjects
+    abstract class EnemyObjects : MovingObjects
     {
-        protected Vector2 origin;        
-       
-        public Weapon(Rectangle RECTANGLE) : base(RECTANGLE)
+        protected int healthPoints;
+        public EnemyObjects(Rectangle RECTANGLE) : base(RECTANGLE)
         {
 
         }
+        public abstract void Update(GameTime gameTime);
        
     }
 }

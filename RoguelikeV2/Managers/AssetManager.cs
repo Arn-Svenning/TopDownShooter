@@ -12,6 +12,9 @@ namespace RoguelikeV2.Managers
 {
     internal class AssetManager
     {
+        //Enemies
+        public static Texture2D chasingEnemy;
+
         //player1
         public static Texture2D up;
         public static Texture2D down;
@@ -39,6 +42,10 @@ namespace RoguelikeV2.Managers
         public static Texture2D normalGun;
         public static Texture2D sniper;
 
+        //bullets
+        public static Texture2D regularBulletRed;
+        public static Texture2D regularBulletBlue;
+
         //particles
         public static Texture2D circleParticle;
 
@@ -51,6 +58,9 @@ namespace RoguelikeV2.Managers
         
         public static void LoadAssets(ContentManager Content)
         {
+            //enemies
+            chasingEnemy = Content.Load<Texture2D>("Moving/Enemies/Chasing-Enemy");
+
             //player1
             up = Content.Load<Texture2D>("Moving/Players/Player1/Move/Up-Sheet");
             down = Content.Load<Texture2D>("Moving/Players/Player1/Move/Front-Sheet");
@@ -77,6 +87,10 @@ namespace RoguelikeV2.Managers
             //guns
             normalGun = Content.Load<Texture2D>("Stationary/Guns/Normal-Gun");
             sniper = Content.Load<Texture2D>("Stationary/Guns/Sniper");
+
+            //bullets
+            regularBulletRed = Content.Load<Texture2D>("Moving/Bullets/Player1-Bullet");
+            regularBulletBlue = Content.Load<Texture2D>("Moving/Bullets/Player2-Bullet");
 
             //particles
             circleParticle = Content.Load<Texture2D>("Moving/Particles/circle");

@@ -10,7 +10,7 @@ namespace RoguelikeV2.GameLogic.Stationary
     {      
         public StationaryObjects(Rectangle RECTANGLE) : base(RECTANGLE)
         {
-
+            
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

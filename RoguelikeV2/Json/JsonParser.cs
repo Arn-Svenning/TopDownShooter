@@ -10,6 +10,7 @@ using System.IO;
 using System;
 using RoguelikeV2.GameLogic.Moving.Players;
 using RoguelikeV2.GameLogic.Stationary.Tiles;
+using RoguelikeV2.GameLogic.Moving.Enemies;
 #endregion
 
 namespace RoguelikeV2.Json
@@ -76,6 +77,7 @@ namespace RoguelikeV2.Json
             JArray floorArray = new JArray();
             JArray p1Array = new JArray();
             JArray p2Array = new JArray();
+            JArray chasingEnemyArray = new JArray();
             JObject bigobj = new JObject();
             JArray array = new JArray();
 
@@ -97,8 +99,14 @@ namespace RoguelikeV2.Json
                     p1Array.Add(obj);
                     p2Array.Add(obj);
                 }
+                else if (gList[i] is ChasingEnemy)
+                {
+                    JObject obj = CreateObject(gList[i].Size);
+                    chasingEnemyArray.Add(obj);
+                }
 
             }
+            bigobj.Add("chasingEnemies", chasingEnemyArray);
             bigobj.Add("player1", p1Array);
             bigobj.Add("player2", p2Array);
             bigobj.Add("walls", wallArray);

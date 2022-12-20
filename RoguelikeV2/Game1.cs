@@ -66,6 +66,7 @@ namespace RoguelikeV2
                     GamePlayManager.UpdateSplitScreenCamera();
                     GamePlayManager.UpdatePlayer1(gameTime);
                     GamePlayManager.UpdatePlayer2(gameTime);
+                    GamePlayManager.UpdateChasingEnemies(gameTime);
                     break;
 
                 case Globals.GameState.inGame:
@@ -136,6 +137,7 @@ namespace RoguelikeV2
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
 
             GamePlayManager.DrawMap(spriteBatch);
+            GamePlayManager.DrawChasingEnemies(spriteBatch);
             GamePlayManager.DrawPlayer1(spriteBatch);
             GamePlayManager.DrawPlayer2(spriteBatch);
 
