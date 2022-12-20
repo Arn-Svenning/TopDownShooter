@@ -49,6 +49,18 @@
 /processorParam:TextureFormat=Color
 /build:Moving/Enemies/Chasing-Enemy.png
 
+#begin Moving/Enemies/Necromancer-Sheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Moving/Enemies/Necromancer-Sheet.png
+
 #begin Moving/Particles/circle.png
 /importer:TextureImporter
 /processor:TextureProcessor

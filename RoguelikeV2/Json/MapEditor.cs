@@ -34,8 +34,12 @@ namespace RoguelikeV2.Json
             {
                 MapManager.mapObjects.Add(chasing);
             }
-            
-           
+            foreach (Necromancer necro in MapManager.necromancers)
+            {
+                MapManager.mapObjects.Add(necro);
+            }
+
+
             isSaved = false;
         }
         public void Update()
@@ -63,6 +67,11 @@ namespace RoguelikeV2.Json
             {
                 ChasingEnemy c = new ChasingEnemy(rect);
                 MapManager.mapObjects.Add(c);
+            }
+            else if (InputManager.PressOnce(Keys.N))
+            {
+                Necromancer n = new Necromancer(rect);
+                MapManager.mapObjects.Add(n);
             }
 
             else if (InputManager.PressOnce(Keys.S))
@@ -97,6 +106,10 @@ namespace RoguelikeV2.Json
             foreach(ChasingEnemy chasing in MapManager.chasingEnemies)
             {
                 chasing.Draw(spriteBatch);
+            }
+            foreach (Necromancer necro in MapManager.necromancers)
+            {
+                necro.Draw(spriteBatch);
             }
         }
     }

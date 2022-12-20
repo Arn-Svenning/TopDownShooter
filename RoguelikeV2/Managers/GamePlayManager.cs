@@ -57,6 +57,18 @@ namespace RoguelikeV2.Managers
         public static void UpdateChasingEnemies(GameTime gameTime) => MapManager.UpdateChasingEnemies(gameTime);
 
         public static void DrawChasingEnemies(SpriteBatch spriteBatch) => MapManager.DrawChasingEnemies(spriteBatch);
+
+        public static void UpdateNecromancers(GameTime gameTime)
+        {
+            ProjectileManager.UpdateNecromancerProjectile(gameTime);
+            MapManager.UpdateNecromancers(gameTime);
+        }
+
+        public static void DrawNecromancers(SpriteBatch spriteBatch)
+        {
+            ProjectileManager.DrawNecroMancerProjectile(spriteBatch);
+            MapManager.DrawNecromancers(spriteBatch);
+        }
         #endregion
     }
 }

@@ -67,6 +67,7 @@ namespace RoguelikeV2
                     GamePlayManager.UpdatePlayer1(gameTime);
                     GamePlayManager.UpdatePlayer2(gameTime);
                     GamePlayManager.UpdateChasingEnemies(gameTime);
+                    GamePlayManager.UpdateNecromancers(gameTime);
                     break;
 
                 case Globals.GameState.inGame:
@@ -138,6 +139,7 @@ namespace RoguelikeV2
 
             GamePlayManager.DrawMap(spriteBatch);
             GamePlayManager.DrawChasingEnemies(spriteBatch);
+            GamePlayManager.DrawNecromancers(spriteBatch);
             GamePlayManager.DrawPlayer1(spriteBatch);
             GamePlayManager.DrawPlayer2(spriteBatch);
 

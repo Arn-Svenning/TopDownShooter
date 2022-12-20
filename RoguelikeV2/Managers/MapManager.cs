@@ -10,6 +10,7 @@ using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 #endregion
 
 namespace RoguelikeV2.Managers
@@ -20,6 +21,7 @@ namespace RoguelikeV2.Managers
         public static List<Player> player1;
         public static List<Player> player2;
         public static List<ChasingEnemy> chasingEnemies;
+        public static List<Necromancer> necromancers;
 
         private static MapEditor editor;
 
@@ -29,6 +31,7 @@ namespace RoguelikeV2.Managers
             player1 = new List<Player>();
             player2 = new List<Player>();
             chasingEnemies = new List<ChasingEnemy>();
+            necromancers = new List<Necromancer>();
             ReadFromFile("level_1.json");
 
             editor = new MapEditor();
@@ -104,6 +107,20 @@ namespace RoguelikeV2.Managers
                 chasing.Draw(spriteBatch);
             }
         }
+        public static void UpdateNecromancers(GameTime gameTime)
+        {
+            foreach (Necromancer necro in necromancers)
+            {
+                necro.Update(gameTime);
+            }
+        }
+        public static void DrawNecromancers(SpriteBatch spriteBatch)
+        {
+            foreach (Necromancer necro in necromancers)
+            {
+                necro.Draw(spriteBatch);
+            }
+        }
         #endregion
 
         private static void ReadFromFile(string fileName)
@@ -148,7 +165,13 @@ namespace RoguelikeV2.Managers
                 ChasingEnemy c = new ChasingEnemy(rect);
                 chasingEnemies.Add(c);
             }
-
+            //necromancer
+            List<Rectangle> necromancerRect = JsonParser.GetRectangleList(fileName, "necromancer");
+            foreach (Rectangle rect in necromancerRect)
+            {
+                Necromancer n = new Necromancer(rect);
+                necromancers.Add(n);
+            }
 
         }
         
