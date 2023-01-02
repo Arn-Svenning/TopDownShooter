@@ -23,6 +23,8 @@ namespace RoguelikeV2.Managers
         {
             KeyboardGetState();
             MouseGetState();
+            GamePadStateGetState();
+            GamePadStateGetState2();
         }
         #region KeyboardMethods
         public static KeyboardState KeyboardGetState()
@@ -59,6 +61,21 @@ namespace RoguelikeV2.Managers
         #endregion
 
         #region XBOX
+
+        public static GamePadState GamePadStateGetState()
+        {
+            previousPadState = currentPadState;
+            currentPadState = GamePad.GetState(PlayerIndex.One);
+            return currentPadState;
+
+        }
+        public static GamePadState GamePadStateGetState2()
+        {
+            previousPadState2 = currentPadState2;
+            currentPadState2 = GamePad.GetState(PlayerIndex.Two);
+            return currentPadState2;
+
+        }
         public static bool ControllerPressedOnce(Buttons button)
         {
             return currentPadState.IsButtonDown(button) && !previousPadState.IsButtonDown(button);

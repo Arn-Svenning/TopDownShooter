@@ -60,6 +60,8 @@ namespace RoguelikeV2
             if (Globals.exitGame || InputManager.PressOnce(Keys.Escape)) this.Exit();
 
             InputManager.KeyboardGetState();
+            InputManager.GamePadStateGetState();
+            InputManager.GamePadStateGetState2();
             
             if (InputManager.PressOnce(Keys.E))
             {
