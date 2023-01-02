@@ -43,14 +43,14 @@ namespace RoguelikeV2.GameLogic.Stationary.Weapons
             if (timeLeft > 0) timeLeft -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             if(player == 1)
             {               
-                if (InputManager.PressOnce(shoot))
+                if (InputManager.PressOnce(shoot) || InputManager.ControllerPressedOnce(Buttons.RightTrigger))
                 {
                     Shoot(1);
                 }
             }
             else if(player == 2)
             {
-                if (InputManager.PressOnce(shoot))
+                if (InputManager.PressOnce(shoot) || InputManager.ControllerPressedOnce2(Buttons.RightTrigger))
                 {
                     Shoot(2);
                 }

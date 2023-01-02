@@ -12,6 +12,13 @@ namespace RoguelikeV2.Managers
         private static KeyboardState currentKeyState; 
         private static KeyboardState previousKeyState;
         #endregion
+
+        #region XBOX Variables
+        private static GamePadState currentPadState;
+        private static GamePadState previousPadState;
+        private static GamePadState currentPadState2;
+        private static GamePadState previousPadState2;
+        #endregion
         public static void UpdateInput()
         {
             KeyboardGetState();
@@ -51,6 +58,16 @@ namespace RoguelikeV2.Managers
         }
         #endregion
 
+        #region XBOX
+        public static bool ControllerPressedOnce(Buttons button)
+        {
+            return currentPadState.IsButtonDown(button) && !previousPadState.IsButtonDown(button);
+        }
+        public static bool ControllerPressedOnce2(Buttons button)
+        {
+            return currentPadState2.IsButtonDown(button) && !previousPadState2.IsButtonDown(button);
+        }
 
+        #endregion
     }
 }
