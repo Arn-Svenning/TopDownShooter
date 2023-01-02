@@ -19,7 +19,7 @@ namespace RoguelikeV2.ParticleEngine
         public float AngularVelocity { get; set; }    // The speed that the angle is changing
         public float Size { get; set; }                // The size of the particle
         public int TTL { get; set; }                // The 'time to live' of the particle
-        public Color Color { get; set; }            // The color of the particle
+        public Color Color { get; set; }            // The color of the particle       
               
         public Particle(Texture2D TEXTURE, Vector2 POSITION, Vector2 VELOCITY, float ANGLE, float ANGULARVELOCITY, Color COLOR, float SIZE, int TTL)
         {
@@ -30,7 +30,7 @@ namespace RoguelikeV2.ParticleEngine
             AngularVelocity = ANGULARVELOCITY;
             Color = COLOR;
             Size = SIZE;
-            this.TTL = TTL;
+            this.TTL = TTL;           
         }
         public void Update()
         {

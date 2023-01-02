@@ -13,6 +13,37 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Background/MainMenu/Main-Menu-Background.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Background/MainMenu/Main-Menu-Background.png
+
+#begin defaultFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:defaultFont.spritefont
+
+#begin Moving/Bullets/Necromancer-Shot.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Moving/Bullets/Necromancer-Shot.png
+
 #begin Moving/Bullets/Player1-Bullet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -36,6 +67,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Moving/Bullets/Player2-Bullet.png
+
+#begin Moving/Bullets/RPG-Bullet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Moving/Bullets/RPG-Bullet.png
+
+#begin Moving/Bullets/Sniper-Shot-Red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Moving/Bullets/Sniper-Shot-Red.png
+
+#begin Moving/Bullets/Turret-Projectile.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Moving/Bullets/Turret-Projectile.png
 
 #begin Moving/Enemies/Chasing-Enemy.png
 /importer:TextureImporter
@@ -265,6 +332,18 @@
 /processorParam:TextureFormat=Color
 /build:Moving/Players/Player2/Move/Up-Sheet-Blue.png
 
+#begin Stationary/Enemies/Turret-Sheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Stationary/Enemies/Turret-Sheet.png
+
 #begin Stationary/Floor/Floor-Tile.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -288,6 +367,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Stationary/Guns/Normal-Gun.png
+
+#begin Stationary/Guns/RPG-Gun.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Stationary/Guns/RPG-Gun.png
 
 #begin Stationary/Guns/Sniper.png
 /importer:TextureImporter

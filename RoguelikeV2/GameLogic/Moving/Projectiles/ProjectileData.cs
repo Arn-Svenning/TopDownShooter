@@ -14,6 +14,6 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
         public Vector2 Position { get; set; }
         public float Rotation { get; set; }
         public float LifeSpan { get; set; }
-        public int Speed { get; set; }  
+        public int Speed { get; set; }       
     }
 }

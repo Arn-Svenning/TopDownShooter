@@ -8,6 +8,8 @@ using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using Color = Microsoft.Xna.Framework.Color;
 #endregion
 
 namespace RoguelikeV2.ParticleEngine
@@ -27,6 +29,9 @@ namespace RoguelikeV2.ParticleEngine
 
         private float decreaseRandomScale;
 
+        private int sizeModifier1;
+        private int sizeModifier2;
+
         public ParticleSystem(Texture2D TEXTURE, Vector2 LOCATION, Color COLOR, int TOTALPARTICLES, int TTL)
         {
             EmitterLocation = LOCATION;
@@ -45,6 +50,16 @@ namespace RoguelikeV2.ParticleEngine
             float angularVelocity = 0.1f * (float)(Globals.random.NextDouble() * 2 - 1);
             float size = (float)Globals.random.NextDouble() - decreaseRandomScale;
 
+
+            return new Particle(texture, position, velocity, angle, angularVelocity, color, size, TTL);
+        }
+        private Particle GenerateNewBigParticle()
+        {
+            Vector2 position = EmitterLocation;
+            Vector2 velocity = new Vector2(1f * (float)(Globals.random.NextDouble() * 2 - 1), 1f * (float)(Globals.random.NextDouble() * 2 - 1));
+            float angle = 0;
+            float angularVelocity = 0.1f * (float)(Globals.random.NextDouble() * 2 - 1);
+            float size = Globals.random.Next(sizeModifier1, sizeModifier2);
 
             return new Particle(texture, position, velocity, angle, angularVelocity, color, size, TTL);
         }
@@ -79,7 +94,26 @@ namespace RoguelikeV2.ParticleEngine
                 }
             }
         }
-        
+        public void UpdateBigParticle(int SizeModifier1, int SizeModifier2)
+        {
+            sizeModifier1 = SizeModifier1;
+            sizeModifier2 = SizeModifier2;
+            for (int i = 0; i < totalParticles; i++)
+            {
+                particles.Add(GenerateNewBigParticle());
+            }
+
+            for (int particle = 0; particle < particles.Count; particle++)
+            {
+                particles[particle].Update();
+                if (particles[particle].TTL <= 0)
+                {
+                    particles.RemoveAt(particle);
+                    particle--;
+                }
+            }
+        }
+
         public void DrawParticle(SpriteBatch spriteBatch)
         {
 

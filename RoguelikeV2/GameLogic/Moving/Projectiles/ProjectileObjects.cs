@@ -14,9 +14,11 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
     internal class ProjectileObjects : MovingObjects
     {
         public float LifeSpan { get; protected set; }
+        public int Damage { get; set; } = 1;
+        
         public ProjectileObjects(Rectangle RECTANGLE, ProjectileData DATA) : base(RECTANGLE)
         {
-
+            
         }
     }
 }

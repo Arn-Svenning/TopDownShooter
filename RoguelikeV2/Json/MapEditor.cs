@@ -12,6 +12,7 @@ using System.Diagnostics;
 using RoguelikeV2.GameLogic.Moving.Players;
 using RoguelikeV2.GameLogic.Stationary.Tiles;
 using RoguelikeV2.GameLogic.Moving.Enemies;
+using RoguelikeV2.GameLogic.Stationary.StationaryEnemy;
 #endregion
 
 namespace RoguelikeV2.Json
@@ -26,20 +27,15 @@ namespace RoguelikeV2.Json
 
         public MapEditor()
         {          
-            foreach (Player p2 in MapManager.player2)
+            foreach (Player p1 in MapManager.player1)
             {
-                MapManager.mapObjects.Add(p2);
+                MapManager.mapObjects.Add(p1);
             }
-            foreach(ChasingEnemy chasing in MapManager.chasingEnemies)
+            foreach(EnemyObjects enemy in MapManager.enemies)
             {
-                MapManager.mapObjects.Add(chasing);
+                MapManager.mapObjects.Add(enemy);
             }
-            foreach (Necromancer necro in MapManager.necromancers)
-            {
-                MapManager.mapObjects.Add(necro);
-            }
-
-
+            
             isSaved = false;
         }
         public void Update()
@@ -73,6 +69,12 @@ namespace RoguelikeV2.Json
                 Necromancer n = new Necromancer(rect);
                 MapManager.mapObjects.Add(n);
             }
+            else if (InputManager.PressOnce(Keys.T))
+            {
+                TurretEnemy t = new TurretEnemy(rect);
+                MapManager.mapObjects.Add(t);
+            }
+
 
             else if (InputManager.PressOnce(Keys.S))
             {
@@ -102,15 +104,7 @@ namespace RoguelikeV2.Json
             foreach (Player p1 in MapManager.player1)
             {
                 p1.Draw(spriteBatch);
-            }
-            foreach(ChasingEnemy chasing in MapManager.chasingEnemies)
-            {
-                chasing.Draw(spriteBatch);
-            }
-            foreach (Necromancer necro in MapManager.necromancers)
-            {
-                necro.Draw(spriteBatch);
-            }
+            }           
         }
     }
 }

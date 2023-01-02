@@ -2,10 +2,14 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using RoguelikeV2.Camera;
 using RoguelikeV2.GameLogic.Moving;
 using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
+using RoguelikeV2.Menus;
+using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 #endregion
 
 namespace RoguelikeV2
@@ -14,7 +18,8 @@ namespace RoguelikeV2
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-      
+        
+       
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -22,19 +27,24 @@ namespace RoguelikeV2
             IsMouseVisible = true;
             graphics.PreferredBackBufferWidth = Globals.screenWidth;
             graphics.PreferredBackBufferHeight = Globals.screenHeight;
+            
 
         }
+        
         protected override void Initialize()
         {
-            
+            this.Components.Add(new MainMenu(this));
             base.Initialize();
+
         }
 
         protected override void LoadContent()
         {
+            
             spriteBatch = new SpriteBatch(GraphicsDevice);
             AssetManager.LoadAssets(Content);
-            GamePlayManager.LoadGame(GraphicsDevice.Viewport);
+           
+            GamePlayManager.LoadGame(GraphicsDevice.Viewport, GraphicsDevice);
             #region SplitScreen
             CameraManager.defaultView = GraphicsDevice.Viewport;
             CameraManager.leftView = CameraManager.defaultView;
@@ -47,8 +57,8 @@ namespace RoguelikeV2
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            if (Globals.exitGame || InputManager.PressOnce(Keys.Escape)) this.Exit();
+
             InputManager.KeyboardGetState();
             
             if (InputManager.PressOnce(Keys.E))
@@ -59,18 +69,34 @@ namespace RoguelikeV2
             {
                 Globals.currentGameState = Globals.GameState.mainMenu;
             }
-
+            
             switch (Globals.currentGameState)
             {
+
                 case Globals.GameState.mainMenu:
+
+                    MainMenu.UpdateMenu();
+                    break;
+
+                case Globals.GameState.inGame1Player:
+                    GamePlayManager.UpdateOnePlayerCamera();                   
+                    GamePlayManager.UpdateChasingEnemies(gameTime);
+                    GamePlayManager.UpdateNecromancers(gameTime);
+                    GamePlayManager.UpdateTurrets(gameTime);
+                    GamePlayManager.UpdatePlayer1(gameTime);
+                    GamePlayManager.UpdateWeaponSpawner();
+                    GamePlayManager.UpdateEnemySpawner(gameTime);
+                    break;
+
+                case Globals.GameState.inGame2Player:
                     GamePlayManager.UpdateSplitScreenCamera();
                     GamePlayManager.UpdatePlayer1(gameTime);
                     GamePlayManager.UpdatePlayer2(gameTime);
                     GamePlayManager.UpdateChasingEnemies(gameTime);
                     GamePlayManager.UpdateNecromancers(gameTime);
-                    break;
-
-                case Globals.GameState.inGame:
+                    GamePlayManager.UpdateTurrets(gameTime);
+                    GamePlayManager.UpdateWeaponSpawner();
+                    GamePlayManager.UpdateEnemySpawner(gameTime);
                     break;
 
                 case Globals.GameState.pauseGame:
@@ -93,7 +119,8 @@ namespace RoguelikeV2
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            DrawRenderTargetLayer();
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
            
             
@@ -101,20 +128,33 @@ namespace RoguelikeV2
             {
                 case Globals.GameState.mainMenu:
 
+                    MainMenu.DrawBackground(spriteBatch);
+
+                    break;
+
+                case Globals.GameState.inGame1Player:
+
+                   
+                    DrawOnePlayerCamera(CameraManager.onePlayer);
+                    
+                    break;
+
+                case Globals.GameState.inGame2Player:
+
                     GraphicsDevice.Viewport = CameraManager.leftView;
+                    
                     DrawWithSplitScreenCamera(CameraManager.splitScreenCamera1);
+ 
                     GraphicsDevice.Viewport = CameraManager.rightView;
-                    DrawWithSplitScreenCamera(CameraManager.splitScreenCamera2);
+                    DrawWithSplitScreenCamera(CameraManager.splitScreenCamera2);                   
 
                     GraphicsDevice.Viewport = CameraManager.defaultView;
 
                     spriteBatch.Begin();
                     spriteBatch.Draw(AssetManager.pillar, new Vector2(Globals.screenWidth / 2 - 5, 0), Color.White);
+                    CameraManager.viewSize = new Rectangle(Globals.screenWidth / 2 - 200, Globals.screenHeight / 5 - 220, 400, 220);
+                    CameraManager.DrawMiniMap(spriteBatch);
                     spriteBatch.End();
-
-                    break;
-
-                case Globals.GameState.inGame:
                     break;
 
                 case Globals.GameState.pauseGame:
@@ -138,12 +178,45 @@ namespace RoguelikeV2
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
 
             GamePlayManager.DrawMap(spriteBatch);
+            GamePlayManager.DrawTurrets(spriteBatch);
             GamePlayManager.DrawChasingEnemies(spriteBatch);
             GamePlayManager.DrawNecromancers(spriteBatch);
             GamePlayManager.DrawPlayer1(spriteBatch);
             GamePlayManager.DrawPlayer2(spriteBatch);
+            GamePlayManager.DrawWeaponSpawner(spriteBatch);
+            
+            spriteBatch.End();
+        }
+        private void DrawOnePlayerCamera(OnePlayerCamera camera)
+        {
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
+
+            GamePlayManager.DrawMap(spriteBatch);
+            GamePlayManager.DrawTurrets(spriteBatch);
+            GamePlayManager.DrawChasingEnemies(spriteBatch);
+            GamePlayManager.DrawNecromancers(spriteBatch);
+            GamePlayManager.DrawPlayer1(spriteBatch);
+            GamePlayManager.DrawWeaponSpawner(spriteBatch);            
+            CameraManager.DrawMiniMap(spriteBatch);
 
             spriteBatch.End();
         }
+        private void DrawRenderTargetLayer()
+        {
+            // skapa ny spriteBatch
+            SpriteBatch spriteBatch = new SpriteBatch(GraphicsDevice);
+            // sätt till annat renderTarget
+            GraphicsDevice.SetRenderTarget(CameraManager.miniMap);
+            GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin();
+            GamePlayManager.DrawMap(spriteBatch);
+            GamePlayManager.DrawPlayer1(spriteBatch);
+            GamePlayManager.DrawPlayer2(spriteBatch);
+            GamePlayManager.DrawWeaponSpawner(spriteBatch);
+            spriteBatch.End();
+            // Sätt tillbaka graphicsDevice till ordinarie fönster
+            GraphicsDevice.SetRenderTarget(null);
+        }
+
     }
 }

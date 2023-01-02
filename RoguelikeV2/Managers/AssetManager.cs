@@ -15,6 +15,7 @@ namespace RoguelikeV2.Managers
         //Enemies
         public static Texture2D chasingEnemy;
         public static Texture2D necromancer;
+        public static Texture2D turret;
 
         //player1
         public static Texture2D up;
@@ -42,10 +43,15 @@ namespace RoguelikeV2.Managers
         //guns
         public static Texture2D normalGun;
         public static Texture2D sniper;
+        public static Texture2D RPG;
 
-        //bullets
+        //bullets and magic
         public static Texture2D regularBulletRed;
         public static Texture2D regularBulletBlue;
+        public static Texture2D necromancerMagic;
+        public static Texture2D turretBullet;
+        public static Texture2D sniperShot;
+        public static Texture2D RPGBullet;
 
         //particles
         public static Texture2D circleParticle;
@@ -56,12 +62,19 @@ namespace RoguelikeV2.Managers
         //floor
         public static Texture2D regularFloor;
 
+        //fonts
+        public static SpriteFont minecraftFont;
+
+        //main menu
+        public static Texture2D menuBackground;
+
         
         public static void LoadAssets(ContentManager Content)
         {
             //enemies
             chasingEnemy = Content.Load<Texture2D>("Moving/Enemies/Chasing-Enemy");
             necromancer = Content.Load<Texture2D>("Moving/Enemies/Necromancer-Sheet");
+            turret = Content.Load<Texture2D>("Stationary/Enemies/Turret-Sheet");
 
             //player1
             up = Content.Load<Texture2D>("Moving/Players/Player1/Move/Up-Sheet");
@@ -89,10 +102,15 @@ namespace RoguelikeV2.Managers
             //guns
             normalGun = Content.Load<Texture2D>("Stationary/Guns/Normal-Gun");
             sniper = Content.Load<Texture2D>("Stationary/Guns/Sniper");
+            RPG = Content.Load<Texture2D>("Stationary/Guns/RPG-Gun");
 
-            //bullets
+            //bullets and magic
             regularBulletRed = Content.Load<Texture2D>("Moving/Bullets/Player1-Bullet");
             regularBulletBlue = Content.Load<Texture2D>("Moving/Bullets/Player2-Bullet");
+            necromancerMagic = Content.Load<Texture2D>("Moving/Bullets/Necromancer-Shot");
+            turretBullet = Content.Load<Texture2D>("Moving/Bullets/Turret-Projectile");
+            sniperShot = Content.Load<Texture2D>("Moving/Bullets/Sniper-Shot-Red");
+            RPGBullet = Content.Load<Texture2D>("Moving/Bullets/RPG-Bullet");
 
             //particles
             circleParticle = Content.Load<Texture2D>("Moving/Particles/circle");
@@ -102,6 +120,12 @@ namespace RoguelikeV2.Managers
 
             //floor
             regularFloor = Content.Load<Texture2D>("Stationary/Floor/Floor-Tile");
+
+            //fonts
+            minecraftFont = Content.Load<SpriteFont>("defaultFont");
+
+            //main menu
+            menuBackground = Content.Load<Texture2D>("Background/MainMenu/Main-Menu-Background");
 
             
         }

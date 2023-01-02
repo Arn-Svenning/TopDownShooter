@@ -16,6 +16,7 @@ namespace RoguelikeV2.Camera
         public Matrix Transform { get { return transform; } }
 
         private Vector2 centre;
+        public Vector2 Center { get { return centre; } }
 
         public SplitScreenCamera()
         {
@@ -24,7 +25,7 @@ namespace RoguelikeV2.Camera
         public void Update(Vector2 cameraPosition)
         {
             centre = new Vector2(cameraPosition.X - Globals.screenWidth / 4, cameraPosition.Y - Globals.screenHeight / 2);
-            transform = Matrix.CreateScale(new Vector3(1, 1, 0)) * Matrix.CreateTranslation(new Vector3(-centre.X, -centre.Y, 0));
+            transform = Matrix.CreateScale(new Vector3(1, 1, 0)) * Matrix.CreateTranslation(new Vector3(-centre.X, -centre.Y, 0));             
         }
     }
 }

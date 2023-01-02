@@ -11,6 +11,7 @@ using System;
 using RoguelikeV2.GameLogic.Moving.Players;
 using RoguelikeV2.GameLogic.Stationary.Tiles;
 using RoguelikeV2.GameLogic.Moving.Enemies;
+using RoguelikeV2.GameLogic.Stationary.StationaryEnemy;
 #endregion
 
 namespace RoguelikeV2.Json
@@ -79,6 +80,7 @@ namespace RoguelikeV2.Json
             JArray p2Array = new JArray();
             JArray chasingEnemyArray = new JArray();
             JArray necromancerArray = new JArray();
+            JArray turretArray = new JArray();
             JObject bigobj = new JObject();
             JArray array = new JArray();
 
@@ -110,8 +112,14 @@ namespace RoguelikeV2.Json
                     JObject obj = CreateObject(gList[i].Size);
                     necromancerArray.Add(obj);
                 }
+                else if(gList[i] is TurretEnemy)
+                {
+                    JObject obj = CreateObject(gList[i].Size);
+                    turretArray.Add(obj);
+                }
 
             }
+            bigobj.Add("turret", turretArray);
             bigobj.Add("necromancer", necromancerArray);
             bigobj.Add("chasingEnemies", chasingEnemyArray);
             bigobj.Add("player1", p1Array);

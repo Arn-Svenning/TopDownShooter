@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using RoguelikeV2.GameLogic;
 using RoguelikeV2.GameLogic.Moving.Enemies;
 using RoguelikeV2.GameLogic.Moving.Players;
+using RoguelikeV2.GameLogic.Stationary.StationaryEnemy;
 using RoguelikeV2.GameLogic.Stationary.Tiles;
 using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
@@ -19,19 +20,17 @@ namespace RoguelikeV2.Managers
     {
         public static List<GameObjects> mapObjects;
         public static List<Player> player1;
-        public static List<Player> player2;
-        public static List<ChasingEnemy> chasingEnemies;
-        public static List<Necromancer> necromancers;
+        public static List<Player> player2;      
+        public static List<EnemyObjects> enemies;
 
-        private static MapEditor editor;
+        public static MapEditor editor;
 
         public static void LoadMap()
         {                               
             mapObjects = new List<GameObjects>();
             player1 = new List<Player>();
             player2 = new List<Player>();
-            chasingEnemies = new List<ChasingEnemy>();
-            necromancers = new List<Necromancer>();
+            enemies = new List<EnemyObjects>();          
             ReadFromFile("level_1.json");
 
             editor = new MapEditor();
@@ -57,11 +56,11 @@ namespace RoguelikeV2.Managers
 
         #region Players
         //player1
-        public static void UpdatePlayer1(GameTime gameTime, Keys up, Keys down, Keys right, Keys left, int player, Keys shoot)
+        public static void UpdatePlayer1(GameTime gameTime, Keys up, Keys down, Keys right, Keys left, int player, Keys shoot, GamePadState state)
         {
             foreach(Player p1 in player1)
             {
-                p1.Update(gameTime, up, down, right, left, player, shoot);
+                p1.Update(gameTime, up, down, right, left, player, shoot, state);
             }
         }
 
@@ -74,11 +73,11 @@ namespace RoguelikeV2.Managers
         }
 
         //player2
-        public static void UpdatePlayer2(GameTime gameTime, Keys up, Keys down, Keys right, Keys left, int player, Keys shoot)
+        public static void UpdatePlayer2(GameTime gameTime, Keys up, Keys down, Keys right, Keys left, int player, Keys shoot, GamePadState state)
         {
             foreach(Player p2 in player2)
             {
-                p2.Update(gameTime, up, down, right, left, player, shoot);
+                p2.Update(gameTime, up, down, right, left, player, shoot, state);
             }
         }
 
@@ -95,30 +94,51 @@ namespace RoguelikeV2.Managers
         #region Enemies
         public static void UpdateChasingEnemies(GameTime gameTime)
         {
-            foreach(ChasingEnemy chasing in chasingEnemies)
+            foreach(EnemyObjects enemy in enemies)
             {
-                chasing.Update(gameTime);
-            }
+                if(enemy is ChasingEnemy)
+                    enemy.Update(gameTime);               
+            }            
+            
         }
         public static void DrawChasingEnemies(SpriteBatch spriteBatch)
         {
-            foreach(ChasingEnemy chasing in chasingEnemies)
+            foreach(EnemyObjects enemy in enemies)
             {
-                chasing.Draw(spriteBatch);
-            }
+                if (enemy is ChasingEnemy)
+                    enemy.Draw(spriteBatch);
+            }           
         }
         public static void UpdateNecromancers(GameTime gameTime)
         {
-            foreach (Necromancer necro in necromancers)
+            foreach (EnemyObjects enemy in enemies)
             {
-                necro.Update(gameTime);
+                if (enemy is Necromancer)
+                    enemy.Update(gameTime);
             }
         }
         public static void DrawNecromancers(SpriteBatch spriteBatch)
         {
-            foreach (Necromancer necro in necromancers)
+            foreach (EnemyObjects enemy in enemies)
             {
-                necro.Draw(spriteBatch);
+                if (enemy is Necromancer)
+                    enemy.Draw(spriteBatch);
+            }
+        }
+        public static void UpdateTurrets(GameTime gameTime)
+        {
+            foreach(EnemyObjects enemy in enemies)
+            {
+                if (enemy is TurretEnemy)
+                    enemy.Update(gameTime);
+            }
+        }
+        public static void DrawTurrets(SpriteBatch spriteBatch)
+        {
+            foreach(EnemyObjects enemy in enemies)
+            {
+                if (enemy is TurretEnemy)
+                    enemy.Draw(spriteBatch);
             }
         }
         #endregion
@@ -163,14 +183,21 @@ namespace RoguelikeV2.Managers
             foreach (Rectangle rect in chasingEnemyRect)
             {
                 ChasingEnemy c = new ChasingEnemy(rect);
-                chasingEnemies.Add(c);
+                enemies.Add(c);
             }
             //necromancer
             List<Rectangle> necromancerRect = JsonParser.GetRectangleList(fileName, "necromancer");
             foreach (Rectangle rect in necromancerRect)
             {
                 Necromancer n = new Necromancer(rect);
-                necromancers.Add(n);
+                enemies.Add(n);
+            }
+            //turrets
+            List<Rectangle> turretRect = JsonParser.GetRectangleList(fileName, "turret");
+            foreach (Rectangle rect in turretRect)
+            {
+                TurretEnemy n = new TurretEnemy(rect);
+                enemies.Add(n);
             }
 
         }

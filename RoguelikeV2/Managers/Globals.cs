@@ -20,11 +20,13 @@ namespace RoguelikeV2.Managers
         #endregion
 
         #region enum GameStates
-        public enum GameState { mainMenu, inGame, pauseGame, end, editingMap }
+        public enum GameState { mainMenu, inGame1Player, inGame2Player, pauseGame, end, editingMap }
         public static GameState currentGameState = GameState.mainMenu;
         #endregion
 
         public static Random random = new Random();
+
+        public static bool exitGame = false;
 
     }
 }
