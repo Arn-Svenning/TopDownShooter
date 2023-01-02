@@ -29,8 +29,6 @@ namespace RoguelikeV2.Managers
         public static List<NecromancerProjectile> NecromancerProjectiles { get; } = new List<NecromancerProjectile>();
 
         public static List<TurretProjectile> TurretProjectiles { get; } = new List<TurretProjectile>();
-       
-        
 
         #region PlayerProjectiles
         public static void AddPlayer1Projectile(ProjectileData projectile, int player)
@@ -42,27 +40,25 @@ namespace RoguelikeV2.Managers
             
             Player2Bullets.Add(new(new Rectangle((int)projectile.Position.X, (int)projectile.Position.Y, AssetManager.regularBulletRed.Width, AssetManager.regularBulletRed.Height), projectile, player));
         }
-        public static void Update(GameTime gameTime, List<EnemyObjects> enemies, int player)
+        public static void Update(GameTime gameTime, int player)
         {
             
             if(player == 1)
             {
                 foreach (PlayerBullet bullet in Player1Bullets)
                 {
-                    bullet.Update(gameTime, player);
-
-                    foreach (EnemyObjects enemy in enemies)
+                    bullet.Update(gameTime, player);                                       
+                    foreach (EnemyObjects enemy in MapManager.enemies)
                     {                       
-                        if (enemy.HealthPoints <= 0) continue;                       
+                        //if (enemy.HealthPoints <= 0) continue;                       
                         if (bullet.Size.Intersects(enemy.Rect))
                         {
                             enemy.TakeDamage(bullet.Damage);                           
-                            bullet.DestroyBullet();                                            
+                            bullet.DestroyBullet();                             
                             break;                            
-                        }                        
-                        
+                        }       
                     }
-                    enemies.RemoveAll((enemy) => enemy.HealthPoints <= 0);                  
+                    MapManager.enemies.RemoveAll((enemy) => enemy.HealthPoints <= 0);                     
                 }
                 Player1Bullets.RemoveAll((p) => p.LifeSpan <= 0);
             }
@@ -72,7 +68,7 @@ namespace RoguelikeV2.Managers
                 {
                     bullet.Update(gameTime, player);
 
-                    foreach (EnemyObjects enemy in enemies)
+                    foreach (EnemyObjects enemy in MapManager.enemies)
                     {
                         if (enemy.HealthPoints <= 0) continue;
                         if (bullet.Size.Intersects(enemy.Rect))
@@ -80,9 +76,10 @@ namespace RoguelikeV2.Managers
                             enemy.TakeDamage(bullet.Damage);
                             bullet.DestroyBullet();
                             break;
-                        }
+                        }             
                     }
-                    enemies.RemoveAll((enemy) => enemy.HealthPoints <= 0);
+                    MapManager.enemies.RemoveAll((enemy) => enemy.HealthPoints <= 0);
+                    
                 }
                 Player2Bullets.RemoveAll((p) => p.LifeSpan <= 0);
             }

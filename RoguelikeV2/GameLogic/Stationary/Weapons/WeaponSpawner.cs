@@ -21,7 +21,7 @@ namespace RoguelikeV2.GameLogic.Stationary.Weapons
         int posX;
         int posY;
 
-        private static float weaponTimer = 60 * 2;
+        private static float weaponTimer = 60 * 20;
         public WeaponSpawner()
         {            
             wep = new PlayerWeapon(new Rectangle(posX, posY, AssetManager.normalGun.Width, AssetManager.normalGun.Height),
@@ -53,7 +53,7 @@ namespace RoguelikeV2.GameLogic.Stationary.Weapons
 
                     spawnedWeponRect = new Rectangle(posX, posY, wep.texture.Width, wep.texture.Height);
                     weapons.Add(new(spawnedWeponRect, Vector2.Zero, wep.texture));
-                    weaponTimer = 60 * 2;
+                    weaponTimer = 60 * 20;
                 }
             }
            

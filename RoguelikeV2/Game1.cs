@@ -8,6 +8,7 @@ using RoguelikeV2.GameLogic.Moving;
 using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
 using RoguelikeV2.Menus;
+using RoguelikeV2.ParticleEngine;
 using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 #endregion
@@ -82,21 +83,17 @@ namespace RoguelikeV2
 
                 case Globals.GameState.inGame1Player:
                     GamePlayManager.UpdateOnePlayerCamera();                   
-                    GamePlayManager.UpdateChasingEnemies(gameTime);
-                    GamePlayManager.UpdateNecromancers(gameTime);
-                    GamePlayManager.UpdateTurrets(gameTime);
+                    GamePlayManager.UpdateEnemies(gameTime);                    
                     GamePlayManager.UpdatePlayer1(gameTime);
                     GamePlayManager.UpdateWeaponSpawner();
-                    GamePlayManager.UpdateEnemySpawner(gameTime);
+                    GamePlayManager.UpdateEnemySpawner(gameTime);                    
                     break;
 
                 case Globals.GameState.inGame2Player:
                     GamePlayManager.UpdateSplitScreenCamera();
                     GamePlayManager.UpdatePlayer1(gameTime);
                     GamePlayManager.UpdatePlayer2(gameTime);
-                    GamePlayManager.UpdateChasingEnemies(gameTime);
-                    GamePlayManager.UpdateNecromancers(gameTime);
-                    GamePlayManager.UpdateTurrets(gameTime);
+                    GamePlayManager.UpdateEnemies(gameTime);                    
                     GamePlayManager.UpdateWeaponSpawner();
                     GamePlayManager.UpdateEnemySpawner(gameTime);
                     break;
@@ -177,12 +174,9 @@ namespace RoguelikeV2
         }
         private void DrawWithSplitScreenCamera(SplitScreenCamera camera)
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
-
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);            
             GamePlayManager.DrawMap(spriteBatch);
-            GamePlayManager.DrawTurrets(spriteBatch);
-            GamePlayManager.DrawChasingEnemies(spriteBatch);
-            GamePlayManager.DrawNecromancers(spriteBatch);
+            GamePlayManager.DrawEnemies(spriteBatch);
             GamePlayManager.DrawPlayer1(spriteBatch);
             GamePlayManager.DrawPlayer2(spriteBatch);
             GamePlayManager.DrawWeaponSpawner(spriteBatch);
@@ -193,14 +187,12 @@ namespace RoguelikeV2
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
 
-            GamePlayManager.DrawMap(spriteBatch);
-            GamePlayManager.DrawTurrets(spriteBatch);
-            GamePlayManager.DrawChasingEnemies(spriteBatch);
-            GamePlayManager.DrawNecromancers(spriteBatch);
+            GamePlayManager.DrawMap(spriteBatch);           
+            GamePlayManager.DrawEnemies(spriteBatch);            
             GamePlayManager.DrawPlayer1(spriteBatch);
             GamePlayManager.DrawWeaponSpawner(spriteBatch);            
-            CameraManager.DrawMiniMap(spriteBatch);
-
+            CameraManager.DrawMiniMap(spriteBatch);   
+          
             spriteBatch.End();
         }
         private void DrawRenderTargetLayer()

@@ -10,6 +10,7 @@ using RoguelikeV2.Managers;
 using RoguelikeV2.ParticleEngine;
 using SharpDX.Direct2D1;
 using System;
+using System.Collections.Generic;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 #endregion
 
@@ -25,13 +26,16 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
 
         private ParticleSystem bloodParticle;
         protected ParticleSystem deadEnemyBlood;
+        public ParticleSystem DeadEnemyBlood { get { return deadEnemyBlood; } }
         
         public bool IsHit { get; set; } = false;
         public float hitTimer = 60 * 0.1f;
 
         protected Color color = Color.White;
-        public EnemyObjects(Rectangle RECTANGLE) : base(RECTANGLE)
+       
+        public EnemyObjects(Rectangle RECTANGLE, int HP) : base(RECTANGLE)
         {
+            healthPoints = HP;
             bloodParticle = new ParticleSystem(AssetManager.circleParticle, position, Color.DarkRed, 10, 20);        
             deadEnemyBlood = new ParticleSystem(AssetManager.circleParticle, position, Color.DarkRed, 10, 20);            
         }
@@ -79,7 +83,7 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
         {
             if (healthPoints <= 0)
             {
-                deadEnemyBlood.DrawParticle(spriteBatch);
+                deadEnemyBlood.DrawParticle(spriteBatch);                
             }
         }
         #endregion

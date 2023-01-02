@@ -9,6 +9,7 @@ using RoguelikeV2.GameLogic.Stationary.StationaryEnemy;
 using RoguelikeV2.GameLogic.Stationary.Tiles;
 using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
+using RoguelikeV2.ParticleEngine;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +26,8 @@ namespace RoguelikeV2.Managers
 
         public static MapEditor editor;
 
+
+        public static List<ParticleSystem> deadEnemies = new List<ParticleSystem>();
         public static void LoadMap()
         {                               
             mapObjects = new List<GameObjects>();
@@ -92,55 +95,21 @@ namespace RoguelikeV2.Managers
         #endregion
 
         #region Enemies
-        public static void UpdateChasingEnemies(GameTime gameTime)
+        public static void UpdateEnemies(GameTime gameTime)
         {
             foreach(EnemyObjects enemy in enemies)
             {
-                if(enemy is ChasingEnemy)
-                    enemy.Update(gameTime);               
+                enemy.Update(gameTime);                
             }            
             
         }
-        public static void DrawChasingEnemies(SpriteBatch spriteBatch)
+        public static void DrawEnemies(SpriteBatch spriteBatch)
         {
             foreach(EnemyObjects enemy in enemies)
             {
-                if (enemy is ChasingEnemy)
-                    enemy.Draw(spriteBatch);
-            }           
-        }
-        public static void UpdateNecromancers(GameTime gameTime)
-        {
-            foreach (EnemyObjects enemy in enemies)
-            {
-                if (enemy is Necromancer)
-                    enemy.Update(gameTime);
-            }
-        }
-        public static void DrawNecromancers(SpriteBatch spriteBatch)
-        {
-            foreach (EnemyObjects enemy in enemies)
-            {
-                if (enemy is Necromancer)
-                    enemy.Draw(spriteBatch);
-            }
-        }
-        public static void UpdateTurrets(GameTime gameTime)
-        {
-            foreach(EnemyObjects enemy in enemies)
-            {
-                if (enemy is TurretEnemy)
-                    enemy.Update(gameTime);
-            }
-        }
-        public static void DrawTurrets(SpriteBatch spriteBatch)
-        {
-            foreach(EnemyObjects enemy in enemies)
-            {
-                if (enemy is TurretEnemy)
-                    enemy.Draw(spriteBatch);
-            }
-        }
+                enemy.Draw(spriteBatch);
+            }                     
+        }       
         #endregion
 
         private static void ReadFromFile(string fileName)
@@ -176,30 +145,7 @@ namespace RoguelikeV2.Managers
             {
                 Player p = new Player(rect);
                 player2.Add(p);
-            }
-
-            //chasingEnemies
-            List<Rectangle> chasingEnemyRect = JsonParser.GetRectangleList(fileName, "chasingEnemies");
-            foreach (Rectangle rect in chasingEnemyRect)
-            {
-                ChasingEnemy c = new ChasingEnemy(rect);
-                enemies.Add(c);
-            }
-            //necromancer
-            List<Rectangle> necromancerRect = JsonParser.GetRectangleList(fileName, "necromancer");
-            foreach (Rectangle rect in necromancerRect)
-            {
-                Necromancer n = new Necromancer(rect);
-                enemies.Add(n);
-            }
-            //turrets
-            List<Rectangle> turretRect = JsonParser.GetRectangleList(fileName, "turret");
-            foreach (Rectangle rect in turretRect)
-            {
-                TurretEnemy n = new TurretEnemy(rect);
-                enemies.Add(n);
-            }
-
+            }          
         }
         
     }

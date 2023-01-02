@@ -31,11 +31,11 @@ namespace RoguelikeV2.Json
             {
                 MapManager.mapObjects.Add(p1);
             }
-            foreach(EnemyObjects enemy in MapManager.enemies)
-            {
-                MapManager.mapObjects.Add(enemy);
-            }
-            
+            //foreach (EnemyObjects enemy in MapManager.enemies)
+            //{
+            //    MapManager.mapObjects.Add(enemy);
+            //}
+
             isSaved = false;
         }
         public void Update()
@@ -61,17 +61,17 @@ namespace RoguelikeV2.Json
             }
             else if (InputManager.PressOnce(Keys.C))
             {
-                ChasingEnemy c = new ChasingEnemy(rect);
+                ChasingEnemy c = new ChasingEnemy(rect, 3);
                 MapManager.mapObjects.Add(c);
             }
             else if (InputManager.PressOnce(Keys.N))
             {
-                Necromancer n = new Necromancer(rect);
+                Necromancer n = new Necromancer(rect, 2);
                 MapManager.mapObjects.Add(n);
             }
             else if (InputManager.PressOnce(Keys.T))
             {
-                TurretEnemy t = new TurretEnemy(rect);
+                TurretEnemy t = new TurretEnemy(rect, 5);
                 MapManager.mapObjects.Add(t);
             }
 

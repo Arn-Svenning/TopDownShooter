@@ -40,7 +40,7 @@ namespace RoguelikeV2.Managers
             GamePadState state1 = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
 
             MapManager.UpdatePlayer1(gameTime, Keys.W, Keys.S, Keys.D, Keys.A, 1, Keys.H, state1);
-            ProjectileManager.Update(gameTime, MapManager.enemies, 1);
+            ProjectileManager.Update(gameTime, 1);
         }
         public static void DrawPlayer1(SpriteBatch spriteBatch)
         {
@@ -52,7 +52,7 @@ namespace RoguelikeV2.Managers
         {
             GamePadState state2 = GamePad.GetState(PlayerIndex.Two, GamePadDeadZone.Circular);
 
-            ProjectileManager.Update(gameTime, MapManager.enemies, 2);
+            ProjectileManager.Update(gameTime, 2);
             MapManager.UpdatePlayer2(gameTime, Keys.Up, Keys.Down, Keys.Right, Keys.Left, 2, Keys.G, state2);            
         }
         public static void DrawPlayer2(SpriteBatch spriteBatch)
@@ -63,31 +63,19 @@ namespace RoguelikeV2.Managers
         #endregion
 
         #region Enemies
-        public static void UpdateChasingEnemies(GameTime gameTime) => MapManager.UpdateChasingEnemies(gameTime);
-
-        public static void DrawChasingEnemies(SpriteBatch spriteBatch) => MapManager.DrawChasingEnemies(spriteBatch);
-
-        public static void UpdateNecromancers(GameTime gameTime)
+        public static void UpdateEnemies(GameTime gameTime)
         {
-            ProjectileManager.UpdateNecroMancerProjectile(gameTime);
-            MapManager.UpdateNecromancers(gameTime);
-        }
-        public static void DrawNecromancers(SpriteBatch spriteBatch)
-        {
-            ProjectileManager.DrawNecroMancerProjectile(spriteBatch);
-            MapManager.DrawNecromancers(spriteBatch);
-        }
-
-        public static void UpdateTurrets(GameTime gameTime)
-        {
-            MapManager.UpdateTurrets(gameTime);
             ProjectileManager.UpdateTurretProjectile(gameTime);
+            ProjectileManager.UpdateNecroMancerProjectile(gameTime);
+            MapManager.UpdateEnemies(gameTime);
         }
-        public static void DrawTurrets(SpriteBatch spriteBatch)
+
+        public static void DrawEnemies(SpriteBatch spriteBatch)
         {
-            MapManager.DrawTurrets(spriteBatch);
             ProjectileManager.DrawTurretProjectile(spriteBatch);
-        }
+            ProjectileManager.DrawNecroMancerProjectile(spriteBatch);
+            MapManager.DrawEnemies(spriteBatch);
+        }       
         #region Spawner
         public static void UpdateEnemySpawner(GameTime gameTime) => EnemySpawnManager.UpdateSpawner(gameTime);       
         #endregion

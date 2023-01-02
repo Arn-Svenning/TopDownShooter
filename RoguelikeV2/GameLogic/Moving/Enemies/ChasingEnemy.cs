@@ -10,6 +10,7 @@ using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
 using RoguelikeV2.ParticleEngine;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 #endregion
 
@@ -19,26 +20,26 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
     {
         public Player Target { get; set; }
         SpriteEffects effect;
-       
-        public ChasingEnemy(Rectangle RECTANGLE) : base(RECTANGLE)
+      
+        public ChasingEnemy(Rectangle RECTANGLE, int HP) : base(RECTANGLE, HP)
         {
-            texture = AssetManager.chasingEnemy;
-            healthPoints = 3;
+            texture = AssetManager.chasingEnemy;           
             speed = 100;
 
-            
+
         }
         public override void Update(GameTime gameTime)
         {
             size = new Rectangle((int)position.X, (int)position.Y, texture.Width / 4, texture.Height + 10);
-            
+
             rect = new Rectangle((int)position.X + 110, (int)position.Y - 10, 90, 90);
             if (effect == SpriteEffects.None)
                 rect.X = (int)position.X + 70;
-            UpdateAliveBloodParticles(1,2,new Vector2(position.X + 130, position.Y + 20));
+            UpdateAliveBloodParticles(1, 2, new Vector2(position.X + 130, position.Y + 20));
             ChasePlayers(gameTime);
             PlayAnimation(gameTime, 8, texture, 100f);
             UpdateDeadBloodParticles(1, 3, new Vector2(position.X + 130, position.Y + 20));
+            
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -46,8 +47,7 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
             DrawAliveBloodParticles(spriteBatch);
             if (healthPoints > 0)
             spriteBatch.Draw(texture, size, sourceRectangle, color, rotation, Vector2.Zero, effect, 1f);
-            //spriteBatch.Draw(texture, rect, Color.Red);
-           
+            //spriteBatch.Draw(texture, rect, Color.Red);           
         }
         public void ChasePlayers(GameTime gameTime)
         {

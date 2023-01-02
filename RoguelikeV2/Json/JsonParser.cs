@@ -77,10 +77,7 @@ namespace RoguelikeV2.Json
             JArray wallArray = new JArray();
             JArray floorArray = new JArray();
             JArray p1Array = new JArray();
-            JArray p2Array = new JArray();
-            JArray chasingEnemyArray = new JArray();
-            JArray necromancerArray = new JArray();
-            JArray turretArray = new JArray();
+            JArray p2Array = new JArray();            
             JObject bigobj = new JObject();
             JArray array = new JArray();
 
@@ -101,27 +98,8 @@ namespace RoguelikeV2.Json
                     JObject obj = CreateObject(gList[i].Size);
                     p1Array.Add(obj);
                     p2Array.Add(obj);
-                }
-                else if (gList[i] is ChasingEnemy)
-                {
-                    JObject obj = CreateObject(gList[i].Size);
-                    chasingEnemyArray.Add(obj);
-                }
-                else if (gList[i] is Necromancer)
-                {
-                    JObject obj = CreateObject(gList[i].Size);
-                    necromancerArray.Add(obj);
-                }
-                else if(gList[i] is TurretEnemy)
-                {
-                    JObject obj = CreateObject(gList[i].Size);
-                    turretArray.Add(obj);
-                }
-
-            }
-            bigobj.Add("turret", turretArray);
-            bigobj.Add("necromancer", necromancerArray);
-            bigobj.Add("chasingEnemies", chasingEnemyArray);
+                }                
+            }           
             bigobj.Add("player1", p1Array);
             bigobj.Add("player2", p2Array);
             bigobj.Add("walls", wallArray);

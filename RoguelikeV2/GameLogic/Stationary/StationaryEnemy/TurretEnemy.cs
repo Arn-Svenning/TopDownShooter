@@ -20,11 +20,10 @@ namespace RoguelikeV2.GameLogic.Stationary.StationaryEnemy
         private SpriteEffects effect;
         private float dir;
         private float shootTimer;
-        public TurretEnemy(Rectangle RECTANGLE) : base(RECTANGLE)
+        public TurretEnemy(Rectangle RECTANGLE, int HP) : base(RECTANGLE,HP)
         {
             texture = AssetManager.turret;
-            shootTimer = 60 * 1;
-            healthPoints = 5;
+            shootTimer = 60 * 1;           
         }
         public override void Update(GameTime gameTime)
         {

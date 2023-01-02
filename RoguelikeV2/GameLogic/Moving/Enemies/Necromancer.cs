@@ -19,10 +19,9 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
         SpriteEffects effect;
         private float shootTimer; 
         
-        public Necromancer(Rectangle RECTANGLE) : base(RECTANGLE)
+        public Necromancer(Rectangle RECTANGLE, int HP) : base(RECTANGLE, HP)
         {
-            texture = AssetManager.necromancer;
-            healthPoints = 2;
+            texture = AssetManager.necromancer;            
             shootTimer = 60 * 3;
         }
         public override void Update(GameTime gameTime)

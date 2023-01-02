@@ -15,9 +15,10 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
     internal class EnemySpawner
     {        
         private float spawn = 60 * 2;
-        private float spawnChance;        
+        private float spawnChance;
+        
         public void Update(GameTime gameTime)
-        {                      
+        {                       
             Spawner();           
         }
         public void Spawner()
@@ -34,22 +35,22 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
                 {
                     int randX = Globals.random.Next(100, Globals.screenWidth - AssetManager.chasingEnemy.Width);
                     int randY = Globals.random.Next(100, Globals.screenHeight - AssetManager.chasingEnemy.Height);
-                    MapManager.enemies.Add(new ChasingEnemy(new Rectangle(randX, randY, 64, 64)));
+                    MapManager.enemies.Add(new ChasingEnemy(new Rectangle(randX, randY, 64, 64), 3));
                 }
                 if (spawnChance > 600 && spawnChance < 900)
                 {
                     int randX = Globals.random.Next(100, Globals.screenWidth - AssetManager.necromancer.Width);
                     int randY = Globals.random.Next(100, Globals.screenHeight - AssetManager.necromancer.Height);
-                    MapManager.enemies.Add(new Necromancer(new Rectangle(randX, randY, 64, 64)));
+                    MapManager.enemies.Add(new Necromancer(new Rectangle(randX, randY, 64, 64), 2));
                 }
                 if (spawnChance > 700 && spawnChance < 800)
                 {
                     int randX = Globals.random.Next(100, Globals.screenWidth - AssetManager.turret.Width);
                     int randY = Globals.random.Next(100, Globals.screenHeight - AssetManager.turret.Height);
-                    MapManager.enemies.Add(new TurretEnemy(new Rectangle(randX, randY, 64, 64)));
+                    MapManager.enemies.Add(new TurretEnemy(new Rectangle(randX, randY, 64, 64), 5));
                 }
-                spawn = 60 * 2;
+                spawn = 60 * 2;                
             }                      
-        }        
+        }             
     }
 }

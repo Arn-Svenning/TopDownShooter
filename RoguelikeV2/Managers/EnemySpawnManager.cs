@@ -12,11 +12,11 @@ namespace RoguelikeV2.Managers
     internal class EnemySpawnManager
     {
         public static EnemySpawner spawner = new EnemySpawner();
+        //public static List<EnemyObjects> enemySpawn = new List<EnemyObjects>();
 
         public static void UpdateSpawner(GameTime gameTime)
         {
             spawner.Update(gameTime);
-        }
-       
+        }       
     }
 }
