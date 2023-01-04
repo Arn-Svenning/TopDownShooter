@@ -6,10 +6,13 @@ using RoguelikeV2.Camera;
 using RoguelikeV2.GameLogic.Moving;
 using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
+using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using Color = Microsoft.Xna.Framework.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 #endregion
 
 namespace RoguelikeV2.ParticleEngine
@@ -32,9 +35,11 @@ namespace RoguelikeV2.ParticleEngine
         private int sizeModifier1;
         private int sizeModifier2;
 
-        public ParticleSystem(Texture2D TEXTURE, Vector2 LOCATION, Color COLOR, int TOTALPARTICLES, int TTL)
-        {
-            EmitterLocation = LOCATION;
+        private Rectangle rect;
+        public Rectangle Rect { get { return rect; } }
+
+        public ParticleSystem(Texture2D TEXTURE, Color COLOR, int TOTALPARTICLES, int TTL)
+        {            
             texture = TEXTURE;
             color = COLOR;
             totalParticles = TOTALPARTICLES;
@@ -49,9 +54,9 @@ namespace RoguelikeV2.ParticleEngine
             float angle = 0;
             float angularVelocity = 0.1f * (float)(Globals.random.NextDouble() * 2 - 1);
             float size = (float)Globals.random.NextDouble() - decreaseRandomScale;
+            rect = new Rectangle((int)position.X, (int)position.Y, (int)size + 40, (int)size + 40);
 
-
-            return new Particle(texture, position, velocity, angle, angularVelocity, color, size, TTL);
+            return new Particle(texture, position, velocity, angle, angularVelocity, color, size, TTL,rect);
         }
         private Particle GenerateNewBigParticle()
         {
@@ -59,9 +64,9 @@ namespace RoguelikeV2.ParticleEngine
             Vector2 velocity = new Vector2(1f * (float)(Globals.random.NextDouble() * 2 - 1), 1f * (float)(Globals.random.NextDouble() * 2 - 1));
             float angle = 0;
             float angularVelocity = 0.1f * (float)(Globals.random.NextDouble() * 2 - 1);
-            float size = Globals.random.Next(sizeModifier1, sizeModifier2);
-
-            return new Particle(texture, position, velocity, angle, angularVelocity, color, size, TTL);
+            float size = Globals.random.Next(sizeModifier1, sizeModifier2);            
+            rect = new Rectangle((int)position.X, (int)position.Y, 150,150);
+            return new Particle(texture, position, velocity, angle, angularVelocity, color, size, TTL, rect);
         }
         public void DeleteParticle()
         {
@@ -95,7 +100,7 @@ namespace RoguelikeV2.ParticleEngine
             }
         }
         public void UpdateBigParticle(int SizeModifier1, int SizeModifier2)
-        {
+        {            
             sizeModifier1 = SizeModifier1;
             sizeModifier2 = SizeModifier2;
             for (int i = 0; i < totalParticles; i++)
@@ -121,7 +126,6 @@ namespace RoguelikeV2.ParticleEngine
             {
                 particles[index].Draw(spriteBatch);
             }
-
         }
     }
 }

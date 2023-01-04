@@ -36,15 +36,15 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
         public EnemyObjects(Rectangle RECTANGLE, int HP) : base(RECTANGLE)
         {
             healthPoints = HP;
-            bloodParticle = new ParticleSystem(AssetManager.circleParticle, position, Color.DarkRed, 10, 20);        
-            deadEnemyBlood = new ParticleSystem(AssetManager.circleParticle, position, Color.DarkRed, 10, 20);            
+            bloodParticle = new ParticleSystem(AssetManager.circleParticle,  Color.DarkRed, 10, 20);        
+            deadEnemyBlood = new ParticleSystem(AssetManager.circleParticle, Color.DarkRed, 10, 20);            
         }
         public abstract void Update(GameTime gameTime);
 
         public void TakeDamage(int dmg)
         {
             healthPoints -= dmg;
-            IsHit = true;
+            IsHit = true;            
         }
         #region Alive Particles
         public void UpdateAliveBloodParticles(int randomSize1, int randomSize2, Vector2 location)

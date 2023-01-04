@@ -29,6 +29,7 @@ namespace RoguelikeV2.Managers
         public static List<NecromancerProjectile> NecromancerProjectiles { get; } = new List<NecromancerProjectile>();
 
         public static List<TurretProjectile> TurretProjectiles { get; } = new List<TurretProjectile>();
+        
 
         #region PlayerProjectiles
         public static void AddPlayer1Projectile(ProjectileData projectile, int player)
@@ -53,7 +54,13 @@ namespace RoguelikeV2.Managers
                         //if (enemy.HealthPoints <= 0) continue;                       
                         if (bullet.Size.Intersects(enemy.Rect))
                         {
-                            enemy.TakeDamage(bullet.Damage);                           
+                            enemy.TakeDamage(bullet.Damage);
+                            if(bullet.texture == AssetManager.RPGBullet)
+                            {
+                                bulletParticles.endPos = bullet.Position;
+                                bulletParticles.explosion = true;
+                            }
+
                             bullet.DestroyBullet();                             
                             break;                            
                         }       
@@ -74,6 +81,11 @@ namespace RoguelikeV2.Managers
                         if (bullet.Size.Intersects(enemy.Rect))
                         {
                             enemy.TakeDamage(bullet.Damage);
+                            if (bullet.texture == AssetManager.RPGBullet)
+                            {
+                                bulletParticles.endPos = bullet.Position;
+                                bulletParticles.explosion = true;
+                            }
                             bullet.DestroyBullet();
                             break;
                         }             

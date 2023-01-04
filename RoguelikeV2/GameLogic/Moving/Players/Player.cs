@@ -30,7 +30,7 @@ namespace RoguelikeV2.GameLogic.Moving.Players
             texture = AssetManager.right;
             speed = 250f;
             playerWeapon = new PlayerWeapon(new Rectangle((int)position.X + 35, (int)position.Y + 30, 64, 64), new Vector2(texture.Width / 2, texture.Height / 2), AssetManager.normalGun);           
-            dustParticle = new ParticleSystem(AssetManager.circleParticle, position, Color.BurlyWood, 3, 15);
+            dustParticle = new ParticleSystem(AssetManager.circleParticle, Color.BurlyWood, 3, 15);
 
             
         }

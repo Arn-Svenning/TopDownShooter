@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using RoguelikeV2.Camera;
 using RoguelikeV2.GameLogic.Moving;
+using RoguelikeV2.GameLogic.Moving.Projectiles;
 using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
 using RoguelikeV2.Menus;
@@ -44,7 +45,7 @@ namespace RoguelikeV2
             
             spriteBatch = new SpriteBatch(GraphicsDevice);
             AssetManager.LoadAssets(Content);
-           
+            bulletParticles.LoadbulletParticles();
             GamePlayManager.LoadGame(GraphicsDevice.Viewport, GraphicsDevice);
             #region SplitScreen
             CameraManager.defaultView = GraphicsDevice.Viewport;
@@ -83,14 +84,17 @@ namespace RoguelikeV2
 
                 case Globals.GameState.inGame1Player:
                     GamePlayManager.UpdateOnePlayerCamera();                   
-                    GamePlayManager.UpdateEnemies(gameTime);                    
+                    GamePlayManager.UpdateEnemies(gameTime);
+                    bulletParticles.Update();
                     GamePlayManager.UpdatePlayer1(gameTime);
                     GamePlayManager.UpdateWeaponSpawner();
-                    GamePlayManager.UpdateEnemySpawner(gameTime);                    
+                    GamePlayManager.UpdateEnemySpawner(gameTime);
+                    
                     break;
 
                 case Globals.GameState.inGame2Player:
                     GamePlayManager.UpdateSplitScreenCamera();
+                    bulletParticles.Update();
                     GamePlayManager.UpdatePlayer1(gameTime);
                     GamePlayManager.UpdatePlayer2(gameTime);
                     GamePlayManager.UpdateEnemies(gameTime);                    
@@ -179,6 +183,7 @@ namespace RoguelikeV2
             GamePlayManager.DrawEnemies(spriteBatch);
             GamePlayManager.DrawPlayer1(spriteBatch);
             GamePlayManager.DrawPlayer2(spriteBatch);
+            bulletParticles.Draw(spriteBatch);
             GamePlayManager.DrawWeaponSpawner(spriteBatch);
             
             spriteBatch.End();
@@ -190,9 +195,9 @@ namespace RoguelikeV2
             GamePlayManager.DrawMap(spriteBatch);           
             GamePlayManager.DrawEnemies(spriteBatch);            
             GamePlayManager.DrawPlayer1(spriteBatch);
-            GamePlayManager.DrawWeaponSpawner(spriteBatch);            
-            CameraManager.DrawMiniMap(spriteBatch);   
-          
+            GamePlayManager.DrawWeaponSpawner(spriteBatch);
+            bulletParticles.Draw(spriteBatch);
+            CameraManager.DrawMiniMap(spriteBatch);              
             spriteBatch.End();
         }
         private void DrawRenderTargetLayer()

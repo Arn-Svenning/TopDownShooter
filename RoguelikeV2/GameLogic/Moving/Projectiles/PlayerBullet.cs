@@ -9,6 +9,7 @@ using RoguelikeV2.GameLogic.Stationary.Weapons;
 using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
 using RoguelikeV2.ParticleEngine;
+using SharpDX.DirectWrite;
 using SharpDX.MediaFoundation;
 using System;
 #endregion
@@ -40,8 +41,13 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
             
             LifeSpan -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-
-           if(player == 1)
+            if (LifeSpan <= 0 && texture == AssetManager.RPGBullet)
+            {
+                bulletParticles.endPos = position;
+                bulletParticles.explosion = true;
+                
+            }
+            if (player == 1)
             {
                 foreach (Player player1 in MapManager.player1)
                 {
@@ -58,7 +64,7 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
                         effect = SpriteEffects.FlipHorizontally;
                         size.Height = 55;
                         size.Width = 64;
-                        Damage = 3;
+                        Damage = 5;
                        
                     }
                 }
@@ -80,7 +86,7 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
                         effect = SpriteEffects.FlipHorizontally;
                         size.Height = 55;
                         size.Width = 64;
-                        Damage = 3;
+                        Damage = 5;
                     }
                 }
             }
@@ -93,7 +99,11 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
             spriteBatch.Draw(texture, size, null, Color.White, rotation, Vector2.Zero, effect, 1);
             
         }        
-        public void DestroyBullet() => LifeSpan = 0;        
+        public void DestroyBullet()
+        {
+            //ProjectileManager.endPos = position;
+            LifeSpan = 0;
+        }
 
     }
 }

@@ -20,9 +20,12 @@ namespace RoguelikeV2.ParticleEngine
         public float Size { get; set; }                // The size of the particle
         public int TTL { get; set; }                // The 'time to live' of the particle
         public Color Color { get; set; }            // The color of the particle       
-              
-        public Particle(Texture2D TEXTURE, Vector2 POSITION, Vector2 VELOCITY, float ANGLE, float ANGULARVELOCITY, Color COLOR, float SIZE, int TTL)
+
+        public Rectangle Rect { get; set; }
+
+        public Particle(Texture2D TEXTURE, Vector2 POSITION, Vector2 VELOCITY, float ANGLE, float ANGULARVELOCITY, Color COLOR, float SIZE, int TTL, Rectangle RECT)
         {
+            Rect = RECT;
             Texture = TEXTURE;
             Position = POSITION;
             Velocity = VELOCITY;
@@ -36,7 +39,7 @@ namespace RoguelikeV2.ParticleEngine
         {
             TTL--;
             Position += Velocity;
-            Angle += AngularVelocity;
+            Angle += AngularVelocity;            
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -44,6 +47,7 @@ namespace RoguelikeV2.ParticleEngine
             Vector2 origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
 
             spriteBatch.Draw(Texture, Position, sourceRectangle, Color, Angle, origin, Size, SpriteEffects.None, 0f);
+            //spriteBatch.Draw(Texture, Rect, sourceRectangle, Color, Angle, origin, SpriteEffects.None, 0f);
         }
     }
 }
