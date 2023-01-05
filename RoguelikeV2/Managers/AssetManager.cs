@@ -17,6 +17,9 @@ namespace RoguelikeV2.Managers
         public static Texture2D necromancer;
         public static Texture2D turret;
 
+        //Enemies Attack
+        public static Texture2D chaserAttack;
+
         //player1
         public static Texture2D up;
         public static Texture2D down;
@@ -72,9 +75,12 @@ namespace RoguelikeV2.Managers
         public static void LoadAssets(ContentManager Content)
         {
             //enemies
-            chasingEnemy = Content.Load<Texture2D>("Moving/Enemies/Chasing-Enemy");
+            chasingEnemy = Content.Load<Texture2D>("Moving/Enemies/Chaser-Enemy");
             necromancer = Content.Load<Texture2D>("Moving/Enemies/Necromancer-Sheet");
             turret = Content.Load<Texture2D>("Stationary/Enemies/Turret-Sheet");
+
+            //enemies attack
+            chaserAttack = Content.Load<Texture2D>("Moving/Enemies/Attack/Chaser-Enemy-Attack");
 
             //player1
             up = Content.Load<Texture2D>("Moving/Players/Player1/Move/Up-Sheet");

@@ -104,7 +104,7 @@
 /processorParam:TextureFormat=Color
 /build:Moving/Bullets/Turret-Projectile.png
 
-#begin Moving/Enemies/Chasing-Enemy.png
+#begin Moving/Enemies/Attack/Chaser-Enemy-Attack.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -114,7 +114,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Moving/Enemies/Chasing-Enemy.png
+/build:Moving/Enemies/Attack/Chaser-Enemy-Attack.png
+
+#begin Moving/Enemies/Chaser-Enemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Moving/Enemies/Chaser-Enemy.png
 
 #begin Moving/Enemies/Necromancer-Sheet.png
 /importer:TextureImporter

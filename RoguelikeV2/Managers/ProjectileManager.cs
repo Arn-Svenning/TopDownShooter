@@ -51,14 +51,14 @@ namespace RoguelikeV2.Managers
                     bullet.Update(gameTime, player);                                       
                     foreach (EnemyObjects enemy in MapManager.enemies)
                     {                       
-                        //if (enemy.HealthPoints <= 0) continue;                       
+                        if (enemy.HealthPoints <= 0) continue;                       
                         if (bullet.Size.Intersects(enemy.Rect))
                         {
                             enemy.TakeDamage(bullet.Damage);
                             if(bullet.texture == AssetManager.RPGBullet)
                             {
-                                bulletParticles.endPos = bullet.Position;
-                                bulletParticles.explosion = true;
+                                RPGExplosionParticles.endPos = bullet.Position;
+                                RPGExplosionParticles.explosion = true;
                             }
 
                             bullet.DestroyBullet();                             
@@ -83,8 +83,8 @@ namespace RoguelikeV2.Managers
                             enemy.TakeDamage(bullet.Damage);
                             if (bullet.texture == AssetManager.RPGBullet)
                             {
-                                bulletParticles.endPos = bullet.Position;
-                                bulletParticles.explosion = true;
+                                RPGExplosionParticles.endPos = bullet.Position;
+                                RPGExplosionParticles.explosion = true;
                             }
                             bullet.DestroyBullet();
                             break;

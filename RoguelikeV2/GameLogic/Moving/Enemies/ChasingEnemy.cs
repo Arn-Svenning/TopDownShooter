@@ -20,33 +20,32 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
     {
         public Player Target { get; set; }
         SpriteEffects effect;
-      
+
+        private const int attackRange = 100;
         public ChasingEnemy(Rectangle RECTANGLE, int HP) : base(RECTANGLE, HP)
         {
-            texture = AssetManager.chasingEnemy;           
+            texture = AssetManager.chasingEnemy;
             speed = 100;
-
 
         }
         public override void Update(GameTime gameTime)
         {
-            size = new Rectangle((int)position.X, (int)position.Y, texture.Width / 4, texture.Height + 10);
+            size = new Rectangle((int)position.X, (int)position.Y, texture.Width / 8, texture.Height);
 
-            rect = new Rectangle((int)position.X + 110, (int)position.Y - 10, 90, 90);
+            rect = new Rectangle((int)position.X, (int)position.Y, 70,70);
             if (effect == SpriteEffects.None)
-                rect.X = (int)position.X + 70;
-            UpdateAliveBloodParticles(1, 2, new Vector2(position.X + 130, position.Y + 20));
+                rect.X = (int)position.X;
+            UpdateAliveBloodParticles(1, 2, new Vector2(position.X, position.Y + 30));
             ChasePlayers(gameTime);
-            PlayAnimation(gameTime, 8, texture, 100f);
-            UpdateDeadBloodParticles(1, 3, new Vector2(position.X + 130, position.Y + 20));
+            
+           
             
         }
         public override void Draw(SpriteBatch spriteBatch)
-        {
-            DrawDeadBloodParticles(spriteBatch);
+        {           
             DrawAliveBloodParticles(spriteBatch);
             if (healthPoints > 0)
-            spriteBatch.Draw(texture, size, sourceRectangle, color, rotation, Vector2.Zero, effect, 1f);
+            spriteBatch.Draw(texture, size, sourceRectangle, color, rotation, Vector2.Zero, effect, 1f);           
             //spriteBatch.Draw(texture, rect, Color.Red);           
         }
         public void ChasePlayers(GameTime gameTime)
@@ -56,7 +55,8 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
 
             float distanceToPlayer1;
             float distanceToPlayer2;
-            if(Globals.currentGameState == Globals.GameState.inGame2Player)
+           
+            if (Globals.currentGameState == Globals.GameState.inGame2Player)
             {
                 // Calculate the distances between the enemy and both players
                 foreach (Player p in MapManager.player1)
@@ -66,7 +66,9 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
                     {
                         closestDistance = distanceToPlayer1;
                         closestPlayerPosition = p.Position;
-                    }
+                        SwitchAnimation(gameTime, distanceToPlayer1);
+                    }                   
+
                 }
 
                 foreach (Player p in MapManager.player2)
@@ -77,9 +79,9 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
                     {
                         closestDistance = distanceToPlayer2;
                         closestPlayerPosition = p.Position;
-
+                        SwitchAnimation(gameTime, distanceToPlayer2);
                     }
-
+                   
                 }
             }
             else
@@ -91,7 +93,9 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
                     {
                         closestDistance = distanceToPlayer1;
                         closestPlayerPosition = p.Position;
+                        SwitchAnimation(gameTime, distanceToPlayer1);
                     }
+                    
                 }
             }
             
@@ -110,6 +114,21 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
             if ((float)Math.Cos(direction) * speed > 0)
                 effect = SpriteEffects.None;
 
+        }
+        public void SwitchAnimation(GameTime gameTime, float distanceToPlayer)
+        {
+            if (distanceToPlayer > attackRange)
+            {
+                texture = AssetManager.chasingEnemy;
+                PlayAnimation(gameTime, 8, texture, 200f);
+            }
+
+            else if (distanceToPlayer <= attackRange)
+            {
+                texture = AssetManager.chaserAttack;
+                size.Width = texture.Width / 9;
+                PlayAnimation(gameTime, 9, texture, 100f);
+            }
         }
 
     }

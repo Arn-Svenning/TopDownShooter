@@ -43,8 +43,8 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
 
             if (LifeSpan <= 0 && texture == AssetManager.RPGBullet)
             {
-                bulletParticles.endPos = position;
-                bulletParticles.explosion = true;
+                RPGExplosionParticles.endPos = position;
+                RPGExplosionParticles.explosion = true;
                 
             }
             if (player == 1)
