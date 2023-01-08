@@ -1,8 +1,10 @@
 ﻿#region Using...
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using RoguelikeV2.GameLogic;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,20 @@ namespace RoguelikeV2.Managers
 {
     internal class AssetManager
     {
+        #region Sound
+
+        //Menu
+        public static SoundEffect click;
+        //Music
+        public static Song backgroundSong;
+        //Guns
+        public static SoundEffect normalGunSound;
+        public static SoundEffect sniperSound;
+        public static SoundEffect RPGFire;
+        public static SoundEffect RPGExplosion;
+        #endregion
+
+
         //Enemies
         public static Texture2D chasingEnemy;
         public static Texture2D necromancer;
@@ -74,6 +90,22 @@ namespace RoguelikeV2.Managers
         
         public static void LoadAssets(ContentManager Content)
         {
+            #region Sound
+            //Menu
+            click = Content.Load<SoundEffect>("Sound/MenuButtons/button-8-88355");
+
+            //Music
+            backgroundSong = Content.Load<Song>("Sound/BackgroundSong/psykick-112469");
+            MediaPlayer.Play(backgroundSong);
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume = 0.2f;
+            //Guns
+            normalGunSound = Content.Load<SoundEffect>("Sound/NormalGun/laser-45816");
+            sniperSound = Content.Load<SoundEffect>("Sound/Sniper/zip-laser-94333");
+            RPGFire = Content.Load<SoundEffect>("Sound/RPG/Fire/pvc-rocket-cannon_2-106658");
+            RPGExplosion = Content.Load<SoundEffect>("Sound/RPG/Explode/explosion-6055");
+            #endregion
+
             //enemies
             chasingEnemy = Content.Load<Texture2D>("Moving/Enemies/Chaser-Enemy");
             necromancer = Content.Load<Texture2D>("Moving/Enemies/Necromancer-Sheet");

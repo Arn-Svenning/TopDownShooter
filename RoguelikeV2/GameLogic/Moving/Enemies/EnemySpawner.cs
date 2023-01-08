@@ -13,44 +13,83 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 namespace RoguelikeV2.GameLogic.Moving.Enemies
 {
     internal class EnemySpawner
-    {        
-        private float spawn = 60 * 2;
+    {               
+        private float spawnNumber;
+        private float spawn = 5;
         private float spawnChance;
-        
+
+        private int randomSpawnX = 1;
+        private int randomSpawnY = 10;
         public void Update(GameTime gameTime)
         {                       
-            Spawner();           
+            Spawner(gameTime);           
         }
-        public void Spawner()
+        public void Spawner(GameTime gameTime)
         {
-            spawn--;
+            
+            spawn -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Debug.WriteLine(spawn);
             if(spawn <= 0)
             {
-                spawnChance = Globals.random.Next(1, 1000);
+                spawnChance = Globals.random.Next(randomSpawnX, randomSpawnY);
                 
             }
             if(spawn <= 0)
             {
-                if (spawnChance > 500 && spawnChance < 1000)
+                //CHASING
+                if (spawnChance > 1)
                 {
                     int randX = Globals.random.Next(100, Globals.screenWidth - AssetManager.chasingEnemy.Width);
                     int randY = Globals.random.Next(100, Globals.screenHeight - AssetManager.chasingEnemy.Height);
                     MapManager.enemies.Add(new ChasingEnemy(new Rectangle(randX, randY, 64, 64), 3));
                 }
-                if (spawnChance > 600 && spawnChance < 900)
+                //NECROMANCER
+                if (spawnChance > 8 && Globals.SurviveTimer < 70)
                 {
                     int randX = Globals.random.Next(100, Globals.screenWidth - AssetManager.necromancer.Width);
                     int randY = Globals.random.Next(100, Globals.screenHeight - AssetManager.necromancer.Height);
                     MapManager.enemies.Add(new Necromancer(new Rectangle(randX, randY, 64, 64), 2));
                 }
-                if (spawnChance > 700 && spawnChance < 800)
+                else if(Globals.SurviveTimer > 70 && spawnChance > 7)
+                {
+                    int randX = Globals.random.Next(100, Globals.screenWidth - AssetManager.necromancer.Width);
+                    int randY = Globals.random.Next(100, Globals.screenHeight - AssetManager.necromancer.Height);
+                    MapManager.enemies.Add(new Necromancer(new Rectangle(randX, randY, 64, 64), 2));
+                }
+                //TURRET
+                if (spawnChance == 5)
                 {
                     int randX = Globals.random.Next(100, Globals.screenWidth - AssetManager.turret.Width);
                     int randY = Globals.random.Next(100, Globals.screenHeight - AssetManager.turret.Height);
                     MapManager.enemies.Add(new TurretEnemy(new Rectangle(randX, randY, 64, 64), 5));
                 }
-                spawn = 60 * 2;                
+                else if(Globals.SurviveTimer > 90 && spawnChance > 7 && Globals.currentGameState == Globals.GameState.inGame2Player)
+                {
+                    int randX = Globals.random.Next(100, Globals.screenWidth - AssetManager.turret.Width);
+                    int randY = Globals.random.Next(100, Globals.screenHeight - AssetManager.turret.Height);
+                    MapManager.enemies.Add(new TurretEnemy(new Rectangle(randX, randY, 64, 64), 5));
+                }
+                IncreaseSpawnChance();
+                spawn = spawnNumber;
             }                      
-        }             
+        }    
+        public void IncreaseSpawnChance()
+        {   if(Globals.SurviveTimer < 40)
+            {
+                spawnNumber = 5;
+            }
+            else if(Globals.SurviveTimer > 40 && Globals.SurviveTimer < 80)
+            {
+                spawnNumber = 4;              
+            }
+            else if(Globals.SurviveTimer > 80 && Globals.SurviveTimer < 120)
+            {
+                spawnNumber = 3;
+            }
+            else if(Globals.SurviveTimer > 120 )
+            {
+                spawnNumber = 2;
+            }                   
+        }
     }
 }

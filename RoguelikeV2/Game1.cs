@@ -60,7 +60,7 @@ namespace RoguelikeV2
         protected override void Update(GameTime gameTime)
         {
             if (Globals.exitGame || InputManager.PressOnce(Keys.Escape)) this.Exit();
-
+            Globals.SurviveTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             InputManager.KeyboardGetState();
             InputManager.GamePadStateGetState();
             InputManager.GamePadStateGetState2();
@@ -135,10 +135,12 @@ namespace RoguelikeV2
                     break;
 
                 case Globals.GameState.inGame1Player:
+                  
+                    DrawOnePlayerCamera(CameraManager.onePlayer);                    
+                    spriteBatch.Begin();
+                    spriteBatch.DrawString(AssetManager.minecraftFont, "Survived: " + Globals.SurviveTimer, new Vector2(Globals.screenWidth / 2 - 150, 0), Color.White);
+                    spriteBatch.End();
 
-                   
-                    DrawOnePlayerCamera(CameraManager.onePlayer);
-                    
                     break;
 
                 case Globals.GameState.inGame2Player:
@@ -154,8 +156,9 @@ namespace RoguelikeV2
 
                     spriteBatch.Begin();
                     spriteBatch.Draw(AssetManager.pillar, new Vector2(Globals.screenWidth / 2 - 5, 0), Color.White);
-                    CameraManager.viewSize = new Rectangle(Globals.screenWidth / 2 - 200, Globals.screenHeight / 5 - 220, 400, 220);
+                    CameraManager.viewSize = new Rectangle(Globals.screenWidth / 2 - 200, Globals.screenHeight / 5 - 220, 400, 220);                  
                     CameraManager.DrawMiniMap(spriteBatch);
+                    spriteBatch.DrawString(AssetManager.minecraftFont, "Survived: " + Globals.SurviveTimer, new Vector2(Globals.screenWidth / 2 - 150, 0), Color.White);
                     spriteBatch.End();
                     break;
 
@@ -184,6 +187,7 @@ namespace RoguelikeV2
             GamePlayManager.DrawPlayer2(spriteBatch);
             RPGExplosionParticles.Draw(spriteBatch);
             GamePlayManager.DrawWeaponSpawner(spriteBatch);
+           
             
             spriteBatch.End();
         }
@@ -196,7 +200,7 @@ namespace RoguelikeV2
             GamePlayManager.DrawPlayer1(spriteBatch);
             GamePlayManager.DrawWeaponSpawner(spriteBatch);
             RPGExplosionParticles.Draw(spriteBatch);            
-            CameraManager.DrawMiniMap(spriteBatch);              
+            CameraManager.DrawMiniMap(spriteBatch);  
             spriteBatch.End();
         }
         private void DrawRenderTargetLayer()

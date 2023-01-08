@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using RoguelikeV2.Camera;
 using RoguelikeV2.GameLogic.Moving;
 using RoguelikeV2.GameLogic.Moving.Enemies;
+using RoguelikeV2.GameLogic.Moving.Players;
 using RoguelikeV2.GameLogic.Moving.Projectiles;
 using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
@@ -83,8 +84,9 @@ namespace RoguelikeV2.Managers
                             enemy.TakeDamage(bullet.Damage);
                             if (bullet.texture == AssetManager.RPGBullet)
                             {
+                                
                                 RPGExplosionParticles.endPos = bullet.Position;
-                                RPGExplosionParticles.explosion = true;
+                                RPGExplosionParticles.explosion = true;                                
                             }
                             bullet.DestroyBullet();
                             break;
@@ -131,6 +133,27 @@ namespace RoguelikeV2.Managers
             foreach(NecromancerProjectile projectile in NecromancerProjectiles)
             {
                 projectile.Update(gameTime);
+
+                foreach(Player player in MapManager.player1)
+                {
+                    if (projectile.Size.Intersects(player.Size))
+                    {
+                        player.TakeDamage(2);
+                        projectile.DestroyProjectile();
+                        break;
+                    }
+                   
+                }
+                foreach (Player player in MapManager.player2)
+                {
+                    if (projectile.Size.Intersects(player.Size))
+                    {
+                        player.TakeDamage(2);
+                        projectile.DestroyProjectile();
+                        break;
+                    }
+
+                }
             }
             NecromancerProjectiles.RemoveAll((p) => p.LifeSpan <= 0);
           
@@ -148,6 +171,25 @@ namespace RoguelikeV2.Managers
             foreach (TurretProjectile projectile in TurretProjectiles)
             {
                 projectile.Update(gameTime);
+                foreach (Player player in MapManager.player1)
+                {
+                    if (projectile.Size.Intersects(player.Size))
+                    {
+                        player.TakeDamage(1);
+                        projectile.DestroyProjectile();
+                        break;
+                    }
+                }
+                foreach (Player player in MapManager.player2)
+                {
+                    if (projectile.Size.Intersects(player.Size))
+                    {
+                        player.TakeDamage(1);
+                        projectile.DestroyProjectile();
+                        break;
+                    }
+
+                }
             }
             TurretProjectiles.RemoveAll((p) => p.LifeSpan <= 0);
         }

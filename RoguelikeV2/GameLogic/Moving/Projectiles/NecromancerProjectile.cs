@@ -24,14 +24,15 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
         }
         public void Update(GameTime gameTime)
         {
+            size = new Rectangle((int)position.X, (int)position.Y, texture.Width / 10, texture.Height);
             PlayAnimation(gameTime, 10, texture, 100f);           
             position += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             LifeSpan -= (float)gameTime.ElapsedGameTime.TotalSeconds;
              
         }
         public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(texture, Position, sourceRectangle, Color.White, rotation, Vector2.Zero, 1, SpriteEffects.None, 1);
+        {           
+            spriteBatch.Draw(texture, size,sourceRectangle, Color.White, rotation, Vector2.Zero, SpriteEffects.None, 1);
         }
     }
 }

@@ -116,19 +116,20 @@ namespace RoguelikeV2.GameLogic.Stationary.Weapons
                 {
                     timeLeft = normalGunShootTimer;
                     base.Shoot(player);
+                    AssetManager.normalGunSound.Play(volume: 0.5f, pitch: 0.1f, pan: 0.0f);
                 }
                 else if (texture == AssetManager.sniper)
                 {
 
                     timeLeft = sniperShootTimer;
                     AmmoRestrictedShot(player, 1000, SniperAmmo);
-
+                    AssetManager.sniperSound.Play(volume: 0.6f, pitch: 0.1f, pan: 0.0f);
                 }
                 else if(texture == AssetManager.RPG)
                 {
                     timeLeft = RPGTimer;
                     AmmoRestrictedShot(player, 700, RPGAmmo);
-                    
+                    AssetManager.RPGFire.Play(volume: 0.5f, pitch: 0.1f, pan: 0.0f);
                 }
             }
                         

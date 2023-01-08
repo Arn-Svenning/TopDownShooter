@@ -3,6 +3,7 @@ using Microsoft.VisualBasic.FileIO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RoguelikeV2.GameLogic.Moving.Enemies;
 using RoguelikeV2.GameLogic.Moving.Projectiles;
 using RoguelikeV2.GameLogic.Stationary;
 using RoguelikeV2.GameLogic.Stationary.Tiles;
@@ -11,6 +12,7 @@ using RoguelikeV2.Managers;
 using RoguelikeV2.ParticleEngine;
 using SharpDX.Direct3D9;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 #endregion
 
@@ -21,11 +23,16 @@ namespace RoguelikeV2.GameLogic.Moving.Players
         private bool isMoving;       
         private ParticleSystem dustParticle;
         private PlayerWeapon playerWeapon;
+        private int healhPoints;
+        private float invicibilityTimer;
         public PlayerWeapon PlayerWeapon { get { return playerWeapon; } }
+
+        private Color color;
 
         public Player(Rectangle RECTANGLE) : base(RECTANGLE)
         {
-            
+            invicibilityTimer = 60 * 2;
+            healhPoints = 3;
             size = RECTANGLE;
             texture = AssetManager.right;
             speed = 250f;
@@ -35,12 +42,12 @@ namespace RoguelikeV2.GameLogic.Moving.Players
             
         }
         public void Update(GameTime gameTime, Keys up, Keys down, Keys right, Keys left, int player, Keys shoot, GamePadState state)
-        {            
+        {
+            invicibilityTimer--;
             //gun            
-            HoldGun(gameTime, up, down, right, left, player, shoot, state);                           
-                                
+            HoldGun(gameTime, up, down, right, left, player, shoot, state);            
             size = new Rectangle((int)position.X, (int)position.Y, texture.Width / 3, texture.Height);
-            
+            ChasingEnemyDamage(player);
             PlayerMovement(gameTime, up, down, right, left, player, state);
             
             Collission();
@@ -51,13 +58,12 @@ namespace RoguelikeV2.GameLogic.Moving.Players
                 dustParticle.UpdateParticle(0.3f);
             }
             else
-                dustParticle.DeleteParticle();
-           
+                dustParticle.DeleteParticle();            
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             dustParticle.DrawParticle(spriteBatch);
-            spriteBatch.Draw(texture, size, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(texture, size, sourceRectangle, color, 0f, Vector2.Zero, SpriteEffects.None, 1);
             playerWeapon.Draw(spriteBatch);
 
             if(playerWeapon.texture == AssetManager.sniper)
@@ -241,9 +247,41 @@ namespace RoguelikeV2.GameLogic.Moving.Players
                 }              
             }
             
-        }       
-        
-        #endregion
+        }
 
+        #endregion
+        #region Take Damage
+        private void ChasingEnemyDamage(int player)
+        {
+            if (invicibilityTimer <= 0)
+            {
+                color = Color.White;
+            }
+            else if(invicibilityTimer > 0 && player == 1)
+                color = Color.Red;
+            else if(invicibilityTimer > 0 && player == 2)
+                color = Color.Blue;
+
+            foreach(EnemyObjects enemy in MapManager.enemies)
+            {
+                if(enemy is ChasingEnemy)
+                {
+                    if(enemy.Rect.Intersects(size) && enemy.texture == AssetManager.chaserAttack)
+                    {
+                        TakeDamage(1);                        
+                    }
+                }
+            }
+        }
+        public void TakeDamage(int damage)
+        {
+            if(invicibilityTimer <= 0)
+            {
+                healhPoints -= damage;
+                invicibilityTimer = 60 * 2;
+            }
+            
+        }
+        #endregion
     }
 }

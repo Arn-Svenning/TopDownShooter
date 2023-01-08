@@ -20,5 +20,9 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
         {
             
         }
+        public void DestroyProjectile()
+        {
+            LifeSpan = 0;
+        }
     }
 }

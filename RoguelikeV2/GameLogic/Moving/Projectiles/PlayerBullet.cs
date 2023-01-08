@@ -45,7 +45,7 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
             {
                 RPGExplosionParticles.endPos = position;
                 RPGExplosionParticles.explosion = true;
-                
+                AssetManager.RPGExplosion.Play(volume: 0.6f, pitch: 0.1f, pan: 0.0f);
             }
             if (player == 1)
             {
@@ -100,9 +100,12 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
             
         }        
         public void DestroyBullet()
-        {
-            //ProjectileManager.endPos = position;
+        {            
             LifeSpan = 0;
+            if(texture == AssetManager.RPGBullet)
+            {
+                AssetManager.RPGExplosion.Play(volume: 0.6f, pitch: 0.1f, pan: 0.0f);
+            }
         }
 
     }

@@ -45,7 +45,7 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
         {
             healthPoints -= dmg;
             IsHit = true;            
-        }
+        }       
         #region Alive Particles
         public void UpdateAliveBloodParticles(int randomSize1, int randomSize2, Vector2 location)
         {

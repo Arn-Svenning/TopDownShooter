@@ -80,6 +80,7 @@ namespace RoguelikeV2.Menus
             startButtonClicked = true;
             Controls.Add(playerOneButton);
             Controls.Add(playerTwoButton);
+            AssetManager.click.Play(volume: 0.4f, pitch: 0.1f, pan: 0.0f);
             
         }
         private void ExitButtonClick(object sender, EventArgs e)
@@ -92,12 +93,14 @@ namespace RoguelikeV2.Menus
             Button buttonOne = sender as Button;            
             onePlayerButton = true;
             Controls.Remove(exitButton);
+            AssetManager.click.Play(volume: 0.4f, pitch: 0.1f, pan: 0.0f);
         }
         private void PlayerTwoSelect(object sender, EventArgs e)
         {
             Button buttonTwo = sender as Button;            
             twoPlayerButton = true;
             Controls.Remove(exitButton);
+            AssetManager.click.Play(volume: 0.4f, pitch: 0.1f, pan: 0.0f);
         }
         public static void UpdateMenu()
         {    

@@ -16,7 +16,9 @@ namespace RoguelikeV2.Managers
 
         #region GameTime
         public static float DeltaTime { get; set; }
-        private static void ElapsedSeconds(GameTime gameTime) => DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+        public static void ElapsedSeconds(GameTime gameTime) => DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+        public static float SurviveTimer { get; set; } = 0;
         #endregion
 
         #region enum GameStates

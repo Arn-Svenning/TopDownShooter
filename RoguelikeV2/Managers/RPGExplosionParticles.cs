@@ -33,22 +33,23 @@ namespace RoguelikeV2.Managers
             particle.UpdateBigParticle(5, 10);
             particle.EmitterLocation = endPos;
             if (explosion)
-            {
-                timer--;
-
+            {                
+                timer--;               
             }
             if (timer <= 0)
             {
+                
                 timer = 60 * 1;
                 explosion = false;
                 endPos = new Vector2(9000, 9000);
 
-            }
+            }               
             foreach (EnemyObjects enemy in MapManager.enemies)
             {
                 if (particle.Rect.Intersects(enemy.Size))
                 {
-                    enemy.TakeDamage(5);
+                    
+                    enemy.TakeDamage(5);                   
                 }
 
             }

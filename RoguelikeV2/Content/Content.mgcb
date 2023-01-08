@@ -344,6 +344,42 @@
 /processorParam:TextureFormat=Color
 /build:Moving/Players/Player2/Move/Up-Sheet-Blue.png
 
+#begin Sound/BackgroundSong/psykick-112469.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/BackgroundSong/psykick-112469.mp3
+
+#begin Sound/MenuButtons/button-8-88355.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/MenuButtons/button-8-88355.mp3
+
+#begin Sound/NormalGun/laser-45816.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/NormalGun/laser-45816.mp3
+
+#begin Sound/RPG/Explode/explosion-6055.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/RPG/Explode/explosion-6055.mp3
+
+#begin Sound/RPG/Fire/pvc-rocket-cannon_2-106658.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/RPG/Fire/pvc-rocket-cannon_2-106658.mp3
+
+#begin Sound/Sniper/zip-laser-94333.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Sniper/zip-laser-94333.mp3
+
 #begin Stationary/Enemies/Turret-Sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
