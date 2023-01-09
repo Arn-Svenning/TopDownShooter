@@ -23,19 +23,14 @@ namespace RoguelikeV2.Json
         private static bool isSaved;
         public static bool IsSaved { get { return isSaved; } }
 
-        private const int tileSize = 64;
-
+        private const int tileSize = 64;        
         public MapEditor()
         {          
             foreach (Player p1 in MapManager.player1)
             {
                 MapManager.mapObjects.Add(p1);
             }
-            //foreach (EnemyObjects enemy in MapManager.enemies)
-            //{
-            //    MapManager.mapObjects.Add(enemy);
-            //}
-
+            
             isSaved = false;
         }
         public void Update()
@@ -53,29 +48,12 @@ namespace RoguelikeV2.Json
                 Wall w = new Wall(rect, AssetManager.regularWall);
                 MapManager.mapObjects.Add(w);
                
-            }
+            }           
             else if(InputManager.PressOnce(Keys.F))
             {
                 Floor f = new Floor(rect, AssetManager.regularFloor);
                 MapManager.mapObjects.Add(f);
-            }
-            else if (InputManager.PressOnce(Keys.C))
-            {
-                ChasingEnemy c = new ChasingEnemy(rect, 3);
-                MapManager.mapObjects.Add(c);
-            }
-            else if (InputManager.PressOnce(Keys.N))
-            {
-                Necromancer n = new Necromancer(rect, 2);
-                MapManager.mapObjects.Add(n);
-            }
-            else if (InputManager.PressOnce(Keys.T))
-            {
-                TurretEnemy t = new TurretEnemy(rect, 5);
-                MapManager.mapObjects.Add(t);
-            }
-
-
+            }           
             else if (InputManager.PressOnce(Keys.S))
             {
                 JsonParser.WriteJsonToFile("level_1.json", MapManager.mapObjects);

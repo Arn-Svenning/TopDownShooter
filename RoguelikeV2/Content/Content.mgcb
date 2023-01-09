@@ -152,6 +152,18 @@
 /processorParam:TextureFormat=Color
 /build:Moving/Particles/circle.png
 
+#begin Moving/Players/Lives/Hearts.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Moving/Players/Lives/Hearts.png
+
 #begin Moving/Players/Player1/Move/Down-Left-Sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -350,6 +362,24 @@
 /processorParam:Quality=Best
 /build:Sound/BackgroundSong/psykick-112469.mp3
 
+#begin Sound/Enemies/Chasing/fast-simple-chop-5-6270.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Enemies/Chasing/fast-simple-chop-5-6270.mp3
+
+#begin Sound/Enemies/Necromancer/magic-spell-6005.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Enemies/Necromancer/magic-spell-6005.mp3
+
+#begin Sound/Enemies/Turret/shoot02wav-14562.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Enemies/Turret/shoot02wav-14562.mp3
+
 #begin Sound/MenuButtons/button-8-88355.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
@@ -463,4 +493,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Stationary/Walls/Wall-Tile.png
+
+#begin Stationary/Walls/WallTile-Up.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Stationary/Walls/WallTile-Up.png
 

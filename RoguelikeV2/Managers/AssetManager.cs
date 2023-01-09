@@ -25,6 +25,11 @@ namespace RoguelikeV2.Managers
         public static SoundEffect sniperSound;
         public static SoundEffect RPGFire;
         public static SoundEffect RPGExplosion;
+
+        //Enemies
+        public static SoundEffect chaserAttackSound;
+        public static SoundEffect necroAttackSound;
+        public static SoundEffect turretAttackSound;
         #endregion
 
 
@@ -56,6 +61,9 @@ namespace RoguelikeV2.Managers
         public static Texture2D downRightBlue;
         public static Texture2D downLeftBlue;
 
+        //playerLives
+        public static Texture2D hearts;
+
         //splitScreen
         public static Texture2D pillar;
 
@@ -77,7 +85,7 @@ namespace RoguelikeV2.Managers
 
         //walls
         public static Texture2D regularWall;
-
+        public static Texture2D wallUp;
         //floor
         public static Texture2D regularFloor;
 
@@ -98,12 +106,17 @@ namespace RoguelikeV2.Managers
             backgroundSong = Content.Load<Song>("Sound/BackgroundSong/psykick-112469");
             MediaPlayer.Play(backgroundSong);
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = 0.2f;
+            MediaPlayer.Volume = 0.1f;
             //Guns
             normalGunSound = Content.Load<SoundEffect>("Sound/NormalGun/laser-45816");
             sniperSound = Content.Load<SoundEffect>("Sound/Sniper/zip-laser-94333");
             RPGFire = Content.Load<SoundEffect>("Sound/RPG/Fire/pvc-rocket-cannon_2-106658");
             RPGExplosion = Content.Load<SoundEffect>("Sound/RPG/Explode/explosion-6055");
+
+            //Enemies
+            chaserAttackSound = Content.Load<SoundEffect>("Sound/Enemies/Chasing/fast-simple-chop-5-6270");
+            necroAttackSound = Content.Load<SoundEffect>("Sound/Enemies/Necromancer/magic-spell-6005");
+            turretAttackSound = Content.Load<SoundEffect>("Sound/Enemies/Turret/shoot02wav-14562");
             #endregion
 
             //enemies
@@ -134,6 +147,9 @@ namespace RoguelikeV2.Managers
             downRightBlue = Content.Load<Texture2D>("Moving/Players/Player2/Move/Down-Right-Sheet-Blue");
             downLeftBlue = Content.Load<Texture2D>("Moving/Players/Player2/Move/Down-Left-Sheet-Blue");
 
+            //playerLives
+            hearts = Content.Load<Texture2D>("Moving/Players/Lives/Hearts");
+
             //splitScreen
             pillar = Content.Load<Texture2D>("Stationary/SplitScreen/SplitScreen");
 
@@ -155,7 +171,7 @@ namespace RoguelikeV2.Managers
 
             //walls
             regularWall = Content.Load<Texture2D>("Stationary/Walls/Wall-Tile");
-
+            wallUp = Content.Load<Texture2D>("Stationary/Walls/WallTile-Up");
             //floor
             regularFloor = Content.Load<Texture2D>("Stationary/Floor/Floor-Tile");
 

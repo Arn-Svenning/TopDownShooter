@@ -20,26 +20,32 @@ namespace RoguelikeV2.GameLogic.Moving.Players
 {
     internal class Player : MovingObjects
     {
-        private bool isMoving;       
+        private bool isMoving;
+        public bool isDead { get; private set; }
         private ParticleSystem dustParticle;
         private PlayerWeapon playerWeapon;
-        private int healhPoints;
+        public int healhPoints { get; private set; }
         private float invicibilityTimer;
         public PlayerWeapon PlayerWeapon { get { return playerWeapon; } }
 
-        private Color color;
+        //SCORE
+        public static int Score1 { get; set; } = 0;
+        public static int Score2 { get; set; } = 0;
+        private Vector2 scorePos;
 
+        private Color color;
+        
         public Player(Rectangle RECTANGLE) : base(RECTANGLE)
-        {
+        {           
             invicibilityTimer = 60 * 2;
-            healhPoints = 3;
+            healhPoints = 5;
             size = RECTANGLE;
             texture = AssetManager.right;
             speed = 250f;
             playerWeapon = new PlayerWeapon(new Rectangle((int)position.X + 35, (int)position.Y + 30, 64, 64), new Vector2(texture.Width / 2, texture.Height / 2), AssetManager.normalGun);           
             dustParticle = new ParticleSystem(AssetManager.circleParticle, Color.BurlyWood, 3, 15);
 
-            
+            isDead = false;           
         }
         public void Update(GameTime gameTime, Keys up, Keys down, Keys right, Keys left, int player, Keys shoot, GamePadState state)
         {
@@ -47,9 +53,8 @@ namespace RoguelikeV2.GameLogic.Moving.Players
             //gun            
             HoldGun(gameTime, up, down, right, left, player, shoot, state);            
             size = new Rectangle((int)position.X, (int)position.Y, texture.Width / 3, texture.Height);
-            ChasingEnemyDamage(player);
-            PlayerMovement(gameTime, up, down, right, left, player, state);
-            
+            ChasingEnemyDamage(player);            
+            PlayerMovement(gameTime, up, down, right, left, player, state);            
             Collission();
             
             if (isMoving)
@@ -59,17 +64,25 @@ namespace RoguelikeV2.GameLogic.Moving.Players
             }
             else
                 dustParticle.DeleteParticle();            
+            if (healhPoints <= 0)
+            {
+                isDead = true;
+            }
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            dustParticle.DrawParticle(spriteBatch);
-            spriteBatch.Draw(texture, size, sourceRectangle, color, 0f, Vector2.Zero, SpriteEffects.None, 1);
-            playerWeapon.Draw(spriteBatch);
+            if(!isDead)
+            {
+               
+                dustParticle.DrawParticle(spriteBatch);
+                spriteBatch.Draw(texture, size, sourceRectangle, color, 0f, Vector2.Zero, SpriteEffects.None, 1);
+                playerWeapon.Draw(spriteBatch);
 
-            if(playerWeapon.texture == AssetManager.sniper)
-                playerWeapon.DrawBulletsLeft(spriteBatch, AssetManager.sniperShot, position, 2);    
-            else if(playerWeapon.texture == AssetManager.RPG)
-                playerWeapon.DrawBulletsLeft(spriteBatch, AssetManager.sniperShot, position, 1);
+                if (playerWeapon.texture == AssetManager.sniper)
+                    playerWeapon.DrawBulletsLeft(spriteBatch, AssetManager.sniperShot, position, 2);
+                else if (playerWeapon.texture == AssetManager.RPG)
+                    playerWeapon.DrawBulletsLeft(spriteBatch, AssetManager.sniperShot, position, 1);              
+            }           
         }
         #region Player Movement
         public void PlayerMovement(GameTime gameTime, Keys up, Keys down, Keys right, Keys left, int player,GamePadState state)
@@ -250,7 +263,7 @@ namespace RoguelikeV2.GameLogic.Moving.Players
         }
 
         #endregion
-        #region Take Damage
+        #region Take Damage / HP
         private void ChasingEnemyDamage(int player)
         {
             if (invicibilityTimer <= 0)
@@ -280,8 +293,13 @@ namespace RoguelikeV2.GameLogic.Moving.Players
                 healhPoints -= damage;
                 invicibilityTimer = 60 * 2;
             }
-            
+           
         }
+        #endregion
+        #region Score
+        public void DrawScore1(SpriteBatch spriteBatch) => spriteBatch.DrawString(AssetManager.minecraftFont, "Score: " + Score1, scorePos, Color.White);
+        public void DrawScore2(SpriteBatch spriteBatch) => spriteBatch.DrawString(AssetManager.minecraftFont, "Score: " + Score2, scorePos, Color.White);
+        public void UpdateScorePos() => scorePos = position + new Vector2(-35,-25);
         #endregion
     }
 }

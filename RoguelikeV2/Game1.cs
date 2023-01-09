@@ -10,6 +10,7 @@ using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
 using RoguelikeV2.Menus;
 using RoguelikeV2.ParticleEngine;
+using System.Diagnostics;
 using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 #endregion
@@ -59,8 +60,7 @@ namespace RoguelikeV2
 
         protected override void Update(GameTime gameTime)
         {
-            if (Globals.exitGame || InputManager.PressOnce(Keys.Escape)) this.Exit();
-            Globals.SurviveTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (Globals.exitGame || InputManager.PressOnce(Keys.Escape)) this.Exit();           
             InputManager.KeyboardGetState();
             InputManager.GamePadStateGetState();
             InputManager.GamePadStateGetState2();
@@ -73,7 +73,12 @@ namespace RoguelikeV2
             {
                 Globals.currentGameState = Globals.GameState.mainMenu;
             }
-            
+            GamePlayManager.LooseGame(gameTime);
+
+
+
+            Globals.CountScoreTimer(gameTime);
+            Debug.WriteLine(Globals.scoreTimer);
             switch (Globals.currentGameState)
             {
 
@@ -82,7 +87,7 @@ namespace RoguelikeV2
                     MainMenu.UpdateMenu();
                     break;
 
-                case Globals.GameState.inGame1Player:
+                case Globals.GameState.inGame1Player:                    
                     GamePlayManager.UpdateOnePlayerCamera();                   
                     GamePlayManager.UpdateEnemies(gameTime);
                     RPGExplosionParticles.Update();
@@ -91,7 +96,7 @@ namespace RoguelikeV2
                     GamePlayManager.UpdateEnemySpawner(gameTime);                    
                     break;
 
-                case Globals.GameState.inGame2Player:
+                case Globals.GameState.inGame2Player:                    
                     GamePlayManager.UpdateSplitScreenCamera();
                     RPGExplosionParticles.Update();
                     GamePlayManager.UpdatePlayer1(gameTime);
@@ -105,6 +110,11 @@ namespace RoguelikeV2
                     break;
 
                 case Globals.GameState.end:
+                    GamePlayManager.UpdateScore1Player();
+                    break;
+
+                case Globals.GameState.end2:
+                    GamePlayManager.UpdateScore2Player();
                     break;
 
                 case Globals.GameState.editingMap:
@@ -158,7 +168,7 @@ namespace RoguelikeV2
                     spriteBatch.Draw(AssetManager.pillar, new Vector2(Globals.screenWidth / 2 - 5, 0), Color.White);
                     CameraManager.viewSize = new Rectangle(Globals.screenWidth / 2 - 200, Globals.screenHeight / 5 - 220, 400, 220);                  
                     CameraManager.DrawMiniMap(spriteBatch);
-                    spriteBatch.DrawString(AssetManager.minecraftFont, "Survived: " + Globals.SurviveTimer, new Vector2(Globals.screenWidth / 2 - 150, 0), Color.White);
+                    spriteBatch.DrawString(AssetManager.minecraftFont, "Survived: " + Globals.SurviveTimer, new Vector2(Globals.screenWidth / 2 - 150, 220), Color.White);
                     spriteBatch.End();
                     break;
 
@@ -166,6 +176,17 @@ namespace RoguelikeV2
                     break;
 
                 case Globals.GameState.end:
+                    spriteBatch.Begin();
+                    spriteBatch.DrawString(AssetManager.minecraftFont, "Survived: " + Globals.SurviveTimer, new Vector2(Globals.screenWidth / 2 - 150, 0), Color.White);
+                    GamePlayManager.DrawScore1Player(spriteBatch);
+                    spriteBatch.End();
+                    break;
+
+                case Globals.GameState.end2:
+                    spriteBatch.Begin();
+                    spriteBatch.DrawString(AssetManager.minecraftFont, "Survived: " + Globals.SurviveTimer, new Vector2(Globals.screenWidth / 2 - 150, 0), Color.White);
+                    GamePlayManager.DrawScore2Player(spriteBatch);                    
+                    spriteBatch.End();
                     break;
 
                 case Globals.GameState.editingMap:

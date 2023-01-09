@@ -28,7 +28,7 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
         {
             
             spawn -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            Debug.WriteLine(spawn);
+            
             if(spawn <= 0)
             {
                 spawnChance = Globals.random.Next(randomSpawnX, randomSpawnY);
@@ -44,13 +44,13 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
                     MapManager.enemies.Add(new ChasingEnemy(new Rectangle(randX, randY, 64, 64), 3));
                 }
                 //NECROMANCER
-                if (spawnChance > 8 && Globals.SurviveTimer < 70)
+                if (spawnChance > 7 && Globals.SurviveTimer < 70)
                 {
                     int randX = Globals.random.Next(100, Globals.screenWidth - AssetManager.necromancer.Width);
                     int randY = Globals.random.Next(100, Globals.screenHeight - AssetManager.necromancer.Height);
                     MapManager.enemies.Add(new Necromancer(new Rectangle(randX, randY, 64, 64), 2));
                 }
-                else if(Globals.SurviveTimer > 70 && spawnChance > 7)
+                else if(Globals.SurviveTimer > 70 && spawnChance > 6)
                 {
                     int randX = Globals.random.Next(100, Globals.screenWidth - AssetManager.necromancer.Width);
                     int randY = Globals.random.Next(100, Globals.screenHeight - AssetManager.necromancer.Height);
@@ -74,19 +74,19 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
             }                      
         }    
         public void IncreaseSpawnChance()
-        {   if(Globals.SurviveTimer < 40)
+        {   if(Globals.SurviveTimer < 30)
             {
                 spawnNumber = 5;
             }
-            else if(Globals.SurviveTimer > 40 && Globals.SurviveTimer < 80)
+            else if(Globals.SurviveTimer > 30 && Globals.SurviveTimer < 60)
             {
                 spawnNumber = 4;              
             }
-            else if(Globals.SurviveTimer > 80 && Globals.SurviveTimer < 120)
+            else if(Globals.SurviveTimer > 60 && Globals.SurviveTimer < 90)
             {
                 spawnNumber = 3;
             }
-            else if(Globals.SurviveTimer > 120 )
+            else if(Globals.SurviveTimer > 90 )
             {
                 spawnNumber = 2;
             }                   

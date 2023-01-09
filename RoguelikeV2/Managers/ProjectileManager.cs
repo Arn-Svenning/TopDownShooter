@@ -7,6 +7,7 @@ using RoguelikeV2.GameLogic.Moving;
 using RoguelikeV2.GameLogic.Moving.Enemies;
 using RoguelikeV2.GameLogic.Moving.Players;
 using RoguelikeV2.GameLogic.Moving.Projectiles;
+using RoguelikeV2.GameLogic.Stationary.StationaryEnemy;
 using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
 using RoguelikeV2.Menus;
@@ -62,7 +63,19 @@ namespace RoguelikeV2.Managers
                                 RPGExplosionParticles.explosion = true;
                             }
 
-                            bullet.DestroyBullet();                             
+                            bullet.DestroyBullet();
+                            if (enemy is ChasingEnemy && enemy.HealthPoints <= 0)
+                            {
+                                Player.Score1++;
+                            }
+                            else if (enemy is Necromancer && enemy.HealthPoints <= 0)
+                            {
+                                Player.Score1 = Player.Score1 + 2;
+                            }
+                            else if (enemy is TurretEnemy && enemy.HealthPoints <= 0)
+                            {
+                                Player.Score1 = Player.Score1 + 3;
+                            }
                             break;                            
                         }       
                     }
@@ -83,12 +96,23 @@ namespace RoguelikeV2.Managers
                         {
                             enemy.TakeDamage(bullet.Damage);
                             if (bullet.texture == AssetManager.RPGBullet)
-                            {
-                                
+                            {                                
                                 RPGExplosionParticles.endPos = bullet.Position;
                                 RPGExplosionParticles.explosion = true;                                
                             }
                             bullet.DestroyBullet();
+                            if (enemy is ChasingEnemy && enemy.HealthPoints <= 0)
+                            {
+                                Player.Score2++;
+                            }
+                            else if (enemy is Necromancer && enemy.HealthPoints <= 0)
+                            {
+                                Player.Score2 = Player.Score2 + 2;
+                            }
+                            else if (enemy is TurretEnemy && enemy.HealthPoints <= 0)
+                            {
+                                Player.Score2 = Player.Score2 + 3;
+                            }
                             break;
                         }             
                     }

@@ -127,7 +127,7 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
             {
                 texture = AssetManager.chaserAttack;
                 size.Width = texture.Width / 9;
-                PlayAnimation(gameTime, 9, texture, 100f);
+                PlayAnimation(gameTime, 9, texture, 100f);               
             }
         }
 

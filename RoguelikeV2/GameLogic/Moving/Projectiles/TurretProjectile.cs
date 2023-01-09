@@ -1,11 +1,19 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿#region Using...
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using RoguelikeV2.Camera;
+using RoguelikeV2.GameLogic.Moving;
+using RoguelikeV2.GameLogic.Moving.Projectiles;
+using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
+using RoguelikeV2.Menus;
+using RoguelikeV2.ParticleEngine;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
+#endregion
 
 namespace RoguelikeV2.GameLogic.Moving.Projectiles
 {

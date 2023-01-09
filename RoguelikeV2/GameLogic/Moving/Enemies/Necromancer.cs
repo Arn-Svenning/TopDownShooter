@@ -145,6 +145,7 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
                     Speed = 300
                 };
                 ProjectileManager.AddNecroMancerProjectile(pd);
+                AssetManager.necroAttackSound.Play(volume: 0.1f, pitch: 0.1f, pan: 0.0f);
                 shootTimer = 60 * 3;
             }
             

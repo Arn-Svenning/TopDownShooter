@@ -2,20 +2,31 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RoguelikeV2.GameLogic.Moving.Players;
 using RoguelikeV2.GameLogic.Stationary.Weapons;
 using RoguelikeV2.Json;
 using RoguelikeV2.Managers;
+using RoguelikeV2.Managers.Scores;
+using SharpDX.DirectWrite;
+using SharpDX.MediaFoundation.DirectX;
+using System.Linq;
+using Color = Microsoft.Xna.Framework.Color;
 #endregion
 namespace RoguelikeV2.Managers
 {
     internal class GamePlayManager
     {
         public static WeaponSpawner spawner;
+
+        public static ScoreManager1 scores1;
+        public static ScoreManager2 scores2;
         public static void LoadGame(Viewport VIEW, GraphicsDevice DEVICE)
         {
             MapManager.LoadMap();
             CameraManager.LoadCamera(VIEW, DEVICE);
             WeaponSpawnManager spawner = new WeaponSpawnManager();
+            scores1 = ScoreManager1.Load();
+            scores2 = ScoreManager2.Load();
         }
         #region MapEditor
         public static void UpdateEditor() => MapManager.UpdateMapEditor();
@@ -60,6 +71,26 @@ namespace RoguelikeV2.Managers
             ProjectileManager.Draw(spriteBatch, 2);
             MapManager.DrawPlayer2(spriteBatch);           
         }
+        public static void LooseGame(GameTime gameTime)
+        {            
+             if (Globals.currentGameState == Globals.GameState.inGame1Player)
+             {
+                Globals.SurviveTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (MapManager.player1.Count == 0)
+                {
+                    Globals.currentGameState = Globals.GameState.end;
+                }
+             }
+            else if (Globals.currentGameState == Globals.GameState.inGame2Player)
+            {
+                Globals.SurviveTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (MapManager.player1.Count == 0 && MapManager.player2.Count == 0)
+                {
+                    Globals.currentGameState = Globals.GameState.end2;
+                }                
+            }
+           
+        }
         #endregion
 
         #region Enemies
@@ -77,9 +108,11 @@ namespace RoguelikeV2.Managers
             MapManager.DrawEnemies(spriteBatch);
         }       
         #region Spawner
-        public static void UpdateEnemySpawner(GameTime gameTime) => EnemySpawnManager.UpdateSpawner(gameTime);       
+        public static void UpdateEnemySpawner(GameTime gameTime) => EnemySpawnManager.UpdateSpawner(gameTime);
         #endregion
         #endregion
+
+        #region WeaponSpawner
         public static void UpdateWeaponSpawner()
         {
 
@@ -89,8 +122,66 @@ namespace RoguelikeV2.Managers
         {
             WeaponSpawnManager.DrawSpawner(spriteBatch);
         }
-        
+        #endregion
+        #region Scores
+         
+        public static void UpdateScore2Player()
+        {
+            if (Globals.scoreTimer <= 0)
+            {
+                scores1.Add(new ScoreProperties()
+                {
+                    PlayerName = "Player 1",
+                    Value = Player.Score1,
+                }
 
-        
+            );
+                ScoreManager1.Save(scores1);
+
+                
+                
+                    scores2.Add(new ScoreProperties()
+                    {
+                        PlayerName = "Player 2",
+                        Value = Player.Score2,
+                    }
+                    );
+                    ScoreManager2.Save(scores2);
+                    Globals.scoreTimer = 5;
+                
+            }
+        }
+        public static void UpdateScore1Player()
+        {
+            if (Globals.scoreTimer <= 0)
+            {
+                
+                
+                    scores1.Add(new ScoreProperties()
+                    {
+                        PlayerName = "Player 1",
+                        Value = Player.Score1,
+                    }
+                    );
+                    ScoreManager1.Save(scores1);
+                    Globals.scoreTimer = 5;
+                
+            }
+        }
+        public static void DrawScore2Player(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(AssetManager.minecraftFont, "Highscores player 1:\n" + string.Join("\n", 
+                scores1.Highscores.Select(c => c.PlayerName + ": " + c.Value).ToArray()), new Vector2(1100, Globals.screenHeight / 2), Color.Red);
+
+            spriteBatch.DrawString(AssetManager.minecraftFont, "Highscores player2:\n" + string.Join("\n",
+                scores2.Highscores.Select(c => c.PlayerName + ": " + c.Value).ToArray()), new Vector2(600, Globals.screenHeight / 2), Color.Blue);
+        }       
+        public static void DrawScore1Player(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(AssetManager.minecraftFont, "Highscores player 1:\n" + string.Join("\n",
+                 scores1.Highscores.Select(c => c.PlayerName + ": " + c.Value).ToArray()), new Vector2(1100, Globals.screenHeight / 2), Color.Red);
+        }
+        #endregion
+
     }
 }

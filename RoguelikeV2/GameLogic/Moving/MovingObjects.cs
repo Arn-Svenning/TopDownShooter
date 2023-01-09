@@ -28,6 +28,7 @@ namespace RoguelikeV2.GameLogic.Moving
         private int frameHeight;
 
         protected Rectangle sourceRectangle;
+        protected Rectangle sourceRectangleHearts;
         #endregion
         public MovingObjects(Rectangle RECTANGLE) : base(RECTANGLE)
         {
@@ -42,7 +43,7 @@ namespace RoguelikeV2.GameLogic.Moving
             frameTime = frameSpeed;
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            sourceRectangle = new Rectangle(currentFrame * frameWidth, 0, frameWidth, frameHeight);
+            sourceRectangle = new Rectangle(currentFrame * frameWidth, 0, frameWidth, frameHeight);            
 
             this.numberOfFrames = numberOfFrames;
             frameWidth = (animationTex.Width / numberOfFrames);

@@ -16,7 +16,7 @@ namespace RoguelikeV2.GameLogic.Stationary.StationaryEnemy
 {
     internal class TurretEnemy : EnemyObjects
     {
-        private const int shootRange = 1000;
+        private const int shootRange = 3000;
         private SpriteEffects effect;
         private float dir;
         private float shootTimer;
@@ -129,10 +129,11 @@ namespace RoguelikeV2.GameLogic.Stationary.StationaryEnemy
                 {
                     Position = position + new Vector2(40, 30),
                     Rotation = dir,
-                    LifeSpan = 3,
+                    LifeSpan = 4,
                     Speed = 300
                 };
                 ProjectileManager.AddTurretProjectile(pd);
+                AssetManager.turretAttackSound.Play(volume: 0.1f, pitch: 0.1f, pan: 0.0f);
                 shootTimer = 60 * 1;
             }
 

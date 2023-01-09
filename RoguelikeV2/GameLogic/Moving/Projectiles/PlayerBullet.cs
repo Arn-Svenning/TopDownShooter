@@ -18,8 +18,8 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
 {
     internal class PlayerBullet : ProjectileObjects
     {
-        SpriteEffects effect = SpriteEffects.None;
-        
+        private SpriteEffects effect = SpriteEffects.None;
+        private Color color;
         public PlayerBullet(Rectangle RECTANGLE,ProjectileData DATA, int player) : base(RECTANGLE, DATA)
         {
             
@@ -49,6 +49,7 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
             }
             if (player == 1)
             {
+                color = Color.Red;
                 foreach (Player player1 in MapManager.player1)
                 {
                     if (player1.PlayerWeapon.texture == AssetManager.sniper)
@@ -71,6 +72,7 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
             }
             else if(player == 2)
             {
+                color = Color.Blue;
                 foreach (Player player2 in MapManager.player2)
                 {
                     if (player2.PlayerWeapon.texture == AssetManager.sniper)
@@ -96,7 +98,7 @@ namespace RoguelikeV2.GameLogic.Moving.Projectiles
         public override void Draw(SpriteBatch spriteBatch)
         {          
 
-            spriteBatch.Draw(texture, size, null, Color.White, rotation, Vector2.Zero, effect, 1);
+            spriteBatch.Draw(texture, size, null, color, rotation, Vector2.Zero, effect, 1);
             
         }        
         public void DestroyBullet()

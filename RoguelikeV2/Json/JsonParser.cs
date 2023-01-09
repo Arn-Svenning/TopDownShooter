@@ -74,7 +74,7 @@ namespace RoguelikeV2.Json
         }
         public static void WriteJsonToFile(string filename, List<GameObjects> gList)
         {
-            JArray wallArray = new JArray();
+            JArray wallArray = new JArray();           
             JArray floorArray = new JArray();
             JArray p1Array = new JArray();
             JArray p2Array = new JArray();            
@@ -87,7 +87,7 @@ namespace RoguelikeV2.Json
                 {
                     JObject obj = CreateObject(gList[i].Size);
                     wallArray.Add(obj);
-                }
+                }                
                 else if (gList[i] is Floor)
                 {
                     JObject obj = CreateObject(gList[i].Size);
@@ -102,7 +102,7 @@ namespace RoguelikeV2.Json
             }           
             bigobj.Add("player1", p1Array);
             bigobj.Add("player2", p2Array);
-            bigobj.Add("walls", wallArray);
+            bigobj.Add("walls", wallArray);            
             bigobj.Add("floor", floorArray);
             System.Diagnostics.Debug.WriteLine(bigobj.ToString());
             File.WriteAllText(filename, bigobj.ToString());
