@@ -30,11 +30,16 @@ namespace RoguelikeV2.Managers
             {
                 scoreTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            if(currentGameState == GameState.end || currentGameState == GameState.end2 && !stopCount)
+            if(currentGameState == GameState.end  && !stopCount)
             {
                 scoreTimer = 0;   
                 stopCount = true;
-            }           
+            }       
+            else if(currentGameState == GameState.end2 && !stopCount)
+            {
+                scoreTimer = 0;
+                stopCount = true;
+            }
         }
         #endregion
 

@@ -134,8 +134,7 @@ namespace RoguelikeV2.Managers
                     PlayerName = "Player 1",
                     Value = Player.Score1,
                 }
-
-            );
+                );
                 ScoreManager1.Save(scores1);
 
                 
@@ -179,7 +178,7 @@ namespace RoguelikeV2.Managers
         public static void DrawScore1Player(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(AssetManager.minecraftFont, "Highscores player 1:\n" + string.Join("\n",
-                 scores1.Highscores.Select(c => c.PlayerName + ": " + c.Value).ToArray()), new Vector2(1100, Globals.screenHeight / 2), Color.Red);
+                 scores1.Highscores.Select(c => c.PlayerName + ": " + c.Value).ToArray()), new Vector2(Globals.screenWidth / 2 - 100, Globals.screenHeight / 2), Color.Red);
         }
         #endregion
 

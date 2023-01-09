@@ -72,11 +72,8 @@ namespace RoguelikeV2
             if (InputManager.PressOnce(Keys.P))
             {
                 Globals.currentGameState = Globals.GameState.mainMenu;
-            }
+            }            
             GamePlayManager.LooseGame(gameTime);
-
-
-
             Globals.CountScoreTimer(gameTime);
             Debug.WriteLine(Globals.scoreTimer);
             switch (Globals.currentGameState)
