@@ -92,8 +92,9 @@ namespace RoguelikeV2.Managers
         //fonts
         public static SpriteFont minecraftFont;
 
-        //main menu
+        //main menu and end
         public static Texture2D menuBackground;
+        public static Texture2D endBackground;
 
         
         public static void LoadAssets(ContentManager Content)
@@ -178,8 +179,9 @@ namespace RoguelikeV2.Managers
             //fonts
             minecraftFont = Content.Load<SpriteFont>("defaultFont");
 
-            //main menu
+            //main menu and end
             menuBackground = Content.Load<Texture2D>("Background/MainMenu/Main-Menu-Background");
+            endBackground = Content.Load<Texture2D>("Background/End/End-background");
 
             
         }

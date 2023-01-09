@@ -169,16 +169,21 @@ namespace RoguelikeV2.Managers
         }
         public static void DrawScore2Player(SpriteBatch spriteBatch)
         {
+            ///Player1
+            spriteBatch.DrawString(AssetManager.minecraftFont, "PLAYER 1 SCORE WAS: " + Player.Score1, new Vector2(1100, Globals.screenHeight / 2 + 150), Color.Black, 0, Vector2.Zero, 1.5f, SpriteEffects.None, 1);
             spriteBatch.DrawString(AssetManager.minecraftFont, "Highscores player 1:\n" + string.Join("\n", 
-                scores1.Highscores.Select(c => c.PlayerName + ": " + c.Value).ToArray()), new Vector2(1100, Globals.screenHeight / 2), Color.Red);
+                scores1.Highscores.Select(c => c.PlayerName + ": " + c.Value).ToArray()), new Vector2(1100, Globals.screenHeight / 2 + 200), Color.Black);
 
+            ///Player2
+            spriteBatch.DrawString(AssetManager.minecraftFont, "PLAYER 2 SCORE WAS: " + Player.Score2, new Vector2(500, Globals.screenHeight / 2 + 150), Color.Black, 0, Vector2.Zero, 1.5f, SpriteEffects.None, 1);
             spriteBatch.DrawString(AssetManager.minecraftFont, "Highscores player2:\n" + string.Join("\n",
-                scores2.Highscores.Select(c => c.PlayerName + ": " + c.Value).ToArray()), new Vector2(600, Globals.screenHeight / 2), Color.Blue);
+                scores2.Highscores.Select(c => c.PlayerName + ": " + c.Value).ToArray()), new Vector2(500, Globals.screenHeight / 2 + 200), Color.Black);
         }       
         public static void DrawScore1Player(SpriteBatch spriteBatch)
         {
+            spriteBatch.DrawString(AssetManager.minecraftFont, "YOUR SCORE WAS: " + Player.Score1, new Vector2(Globals.screenWidth / 2 - 100, Globals.screenHeight / 2 + 150), Color.Black, 0, Vector2.Zero, 1.5f, SpriteEffects.None, 1);
             spriteBatch.DrawString(AssetManager.minecraftFont, "Highscores player 1:\n" + string.Join("\n",
-                 scores1.Highscores.Select(c => c.PlayerName + ": " + c.Value).ToArray()), new Vector2(Globals.screenWidth / 2 - 100, Globals.screenHeight / 2), Color.Red);
+                 scores1.Highscores.Select(c => c.PlayerName + ": " + c.Value).ToArray()), new Vector2(Globals.screenWidth / 2 - 100, Globals.screenHeight / 2 + 200), Color.Black);
         }
         #endregion
 

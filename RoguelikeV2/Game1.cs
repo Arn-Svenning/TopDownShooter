@@ -129,7 +129,7 @@ namespace RoguelikeV2
         protected override void Draw(GameTime gameTime)
         {
             DrawRenderTargetLayer();
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DarkGray);
 
            
             
@@ -174,6 +174,7 @@ namespace RoguelikeV2
 
                 case Globals.GameState.end:
                     spriteBatch.Begin();
+                    spriteBatch.Draw(AssetManager.endBackground, Vector2.Zero, Color.White);
                     spriteBatch.DrawString(AssetManager.minecraftFont, "Survived: " + Globals.SurviveTimer, new Vector2(Globals.screenWidth / 2 - 150, 0), Color.White);
                     GamePlayManager.DrawScore1Player(spriteBatch);
                     spriteBatch.End();
@@ -181,6 +182,7 @@ namespace RoguelikeV2
 
                 case Globals.GameState.end2:
                     spriteBatch.Begin();
+                    spriteBatch.Draw(AssetManager.endBackground, Vector2.Zero, Color.White);
                     spriteBatch.DrawString(AssetManager.minecraftFont, "Survived: " + Globals.SurviveTimer, new Vector2(Globals.screenWidth / 2 - 150, 0), Color.White);
                     GamePlayManager.DrawScore2Player(spriteBatch);                    
                     spriteBatch.End();
