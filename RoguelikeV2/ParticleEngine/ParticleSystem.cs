@@ -118,7 +118,6 @@ namespace RoguelikeV2.ParticleEngine
                 }
             }
         }
-
         public void DrawParticle(SpriteBatch spriteBatch)
         {
 

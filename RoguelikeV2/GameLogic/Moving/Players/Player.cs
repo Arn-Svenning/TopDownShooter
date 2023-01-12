@@ -72,8 +72,7 @@ namespace RoguelikeV2.GameLogic.Moving.Players
         public override void Draw(SpriteBatch spriteBatch)
         {
             if(!isDead)
-            {
-               
+            {               
                 dustParticle.DrawParticle(spriteBatch);
                 spriteBatch.Draw(texture, size, sourceRectangle, color, 0f, Vector2.Zero, SpriteEffects.None, 1);
                 playerWeapon.Draw(spriteBatch);
@@ -248,8 +247,7 @@ namespace RoguelikeV2.GameLogic.Moving.Players
             PickUpGun();
         }
         private void PickUpGun()
-        {
-           
+        {          
             foreach (PlayerWeapon gun in WeaponSpawner.weapons)
             {              
                 if (size.Intersects(gun.Size))
@@ -258,8 +256,7 @@ namespace RoguelikeV2.GameLogic.Moving.Players
                     playerWeapon = gun;                   
                     break;
                 }              
-            }
-            
+            }            
         }
 
         #endregion

@@ -37,9 +37,6 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
                 rect.X = (int)position.X;
             UpdateAliveBloodParticles(1, 2, new Vector2(position.X, position.Y + 30));
             ChasePlayers(gameTime);
-            
-           
-            
         }
         public override void Draw(SpriteBatch spriteBatch)
         {           
@@ -70,18 +67,15 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
                     }                   
 
                 }
-
                 foreach (Player p in MapManager.player2)
                 {
-
                     distanceToPlayer2 = (float)Math.Sqrt(Math.Pow(p.Position.X - position.X, 2) + Math.Pow(p.Position.Y - position.Y, 2));
                     if (distanceToPlayer2 < closestDistance)
                     {
                         closestDistance = distanceToPlayer2;
                         closestPlayerPosition = p.Position;
                         SwitchAnimation(gameTime, distanceToPlayer2);
-                    }
-                   
+                    }                   
                 }
             }
             else
@@ -99,11 +93,9 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
                 }
             }
             
-
             // Calculate the direction from the enemy to the closer player
             float direction = (float)Math.Atan2(closestPlayerPosition.Y - position.Y, closestPlayerPosition.X - position.X);
             
-
             // Update the enemy's position based on the direction and speed
             position.X += (float)Math.Cos(direction) * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             position.Y += (float)Math.Sin(direction) * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;

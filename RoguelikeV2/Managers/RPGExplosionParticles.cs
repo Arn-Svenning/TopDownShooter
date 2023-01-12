@@ -18,7 +18,7 @@ namespace RoguelikeV2.Managers
     {
         public static float timer;
         public static bool explosion;
-        public static Vector2 endPos;
+        public static Vector2 endPos = new Vector2(9000, 9000);
         public static ParticleSystem particle;
 
         public static void LoadExplosionParticles()

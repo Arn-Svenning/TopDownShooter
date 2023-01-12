@@ -121,8 +121,6 @@ namespace RoguelikeV2
                    
                     break;
             }
-            
-
             base.Update(gameTime);
         }
 
@@ -130,9 +128,7 @@ namespace RoguelikeV2
         {
             DrawRenderTargetLayer();
             GraphicsDevice.Clear(Color.DarkGray);
-
            
-            
             switch (Globals.currentGameState)
             {
                 case Globals.GameState.mainMenu:
@@ -152,8 +148,7 @@ namespace RoguelikeV2
 
                 case Globals.GameState.inGame2Player:
 
-                    GraphicsDevice.Viewport = CameraManager.leftView;
-                    
+                    GraphicsDevice.Viewport = CameraManager.leftView;                   
                     DrawWithSplitScreenCamera(CameraManager.splitScreenCamera1);
  
                     GraphicsDevice.Viewport = CameraManager.rightView;
@@ -224,10 +219,9 @@ namespace RoguelikeV2
             spriteBatch.End();
         }
         private void DrawRenderTargetLayer()
-        {
-            // skapa ny spriteBatch
+        {            
             SpriteBatch spriteBatch = new SpriteBatch(GraphicsDevice);
-            // sätt till annat renderTarget
+            
             GraphicsDevice.SetRenderTarget(CameraManager.miniMap);
             GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin();
@@ -236,7 +230,7 @@ namespace RoguelikeV2
             GamePlayManager.DrawPlayer2(spriteBatch);
             GamePlayManager.DrawWeaponSpawner(spriteBatch);
             spriteBatch.End();
-            // Sätt tillbaka graphicsDevice till ordinarie fönster
+           
             GraphicsDevice.SetRenderTarget(null);
         }
 

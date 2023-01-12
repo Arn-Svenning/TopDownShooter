@@ -28,7 +28,7 @@ namespace RoguelikeV2.GameLogic.Moving.Enemies
         {
             size = new Rectangle((int)position.X, (int)position.Y, texture.Width / 3, texture.Height + 10);
 
-            rect = new Rectangle((int)position.X + 60, (int)position.Y, 64, 64);
+            rect = new Rectangle((int)position.X + 60, (int)position.Y, 75, 75);
             if (effect == SpriteEffects.None)
                 rect.X = (int)position.X + 40;
             UpdateAliveBloodParticles(1, 2, new Vector2(position.X + 100, position.Y + 50));

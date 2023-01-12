@@ -42,12 +42,10 @@ namespace RoguelikeV2.Json
             int y = (InputManager.CurrentMouse.Y / tileSize) * tileSize + (int)CameraManager.editorCamera.Centre.Y;
             Rectangle rect = new Rectangle(x, y, tileSize, tileSize);           
             
-
             if (InputManager.PressOnce(Keys.W))
             {
                 Wall w = new Wall(rect, AssetManager.regularWall);
-                MapManager.mapObjects.Add(w);
-               
+                MapManager.mapObjects.Add(w);               
             }           
             else if(InputManager.PressOnce(Keys.F))
             {

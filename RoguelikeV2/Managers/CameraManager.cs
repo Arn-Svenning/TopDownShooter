@@ -34,8 +34,6 @@ namespace RoguelikeV2.Managers
             splitScreenCamera2 = new SplitScreenCamera();
 
             miniMap = new RenderTarget2D(DEVICE, Globals.screenWidth, Globals.screenHeight);
-            
-
         }
 
         #region EditorCamera

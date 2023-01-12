@@ -50,7 +50,7 @@ namespace RoguelikeV2.Managers
         {
             GamePadState state1 = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
 
-            MapManager.UpdatePlayer1(gameTime, Keys.W, Keys.S, Keys.D, Keys.A, 1, Keys.H, state1);
+            MapManager.UpdatePlayer1(gameTime, Keys.W, Keys.S, Keys.D, Keys.A, 1, Keys.R, state1);
             ProjectileManager.Update(gameTime, 1);
         }
         public static void DrawPlayer1(SpriteBatch spriteBatch)
@@ -64,7 +64,7 @@ namespace RoguelikeV2.Managers
             GamePadState state2 = GamePad.GetState(PlayerIndex.Two, GamePadDeadZone.Circular);
 
             ProjectileManager.Update(gameTime, 2);
-            MapManager.UpdatePlayer2(gameTime, Keys.Up, Keys.Down, Keys.Right, Keys.Left, 2, Keys.G, state2);            
+            MapManager.UpdatePlayer2(gameTime, Keys.Up, Keys.Down, Keys.Right, Keys.Left, 2, Keys.M, state2);            
         }
         public static void DrawPlayer2(SpriteBatch spriteBatch)
         {
@@ -153,17 +153,15 @@ namespace RoguelikeV2.Managers
         public static void UpdateScore1Player()
         {
             if (Globals.scoreTimer <= 0)
-            {
-                
-                
-                    scores1.Add(new ScoreProperties()
-                    {
+            {               
+                scores1.Add(new ScoreProperties()
+                {
                         PlayerName = "Player 1",
                         Value = Player.Score1,
-                    }
-                    );
-                    ScoreManager1.Save(scores1);
-                    Globals.scoreTimer = 5;
+                }
+                );
+                ScoreManager1.Save(scores1);
+                Globals.scoreTimer = 5;
                 
             }
         }

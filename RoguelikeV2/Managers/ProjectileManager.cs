@@ -29,10 +29,8 @@ namespace RoguelikeV2.Managers
         public static List<PlayerBullet> Player1Bullets { get; } = new List<PlayerBullet>();
         public static List<PlayerBullet> Player2Bullets { get; } = new List<PlayerBullet>();
         public static List<NecromancerProjectile> NecromancerProjectiles { get; } = new List<NecromancerProjectile>();
-
         public static List<TurretProjectile> TurretProjectiles { get; } = new List<TurretProjectile>();
         
-
         #region PlayerProjectiles
         public static void AddPlayer1Projectile(ProjectileData projectile, int player)
         {            
